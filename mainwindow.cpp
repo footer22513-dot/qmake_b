@@ -10,11 +10,15 @@
 #include "depositformwidget.h"
 #include "successwidget.h"
 #include "datahandler.h"
+
 #include <initializer_list>
 #include <QFileDialog>
 #include <QMessageBox>
 #include <QDir>
 #include <QFileInfo>
+#include <QLayout>
+#include <QtCharts/QtCharts>
+#include <QPen>
 
 static const QString DEFAULT_FILE = "bank_records.txt";
 
@@ -35,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     creditFormWgt  = new CreditFormWidget(this);
     depositFormWgt = new DepositFormWidget(this);
     successWgt     = new SuccessWidget(this);
+    pieChartWgt = new QWidget();
 
     stack = new QStackedWidget(this);
     setCentralWidget(stack);
@@ -48,6 +53,7 @@ MainWindow::MainWindow(QWidget *parent)
     stack->addWidget(creditFormWgt);
     stack->addWidget(depositFormWgt);
     stack->addWidget(successWgt);
+    stack->addWidget(pieChartWgt);
 
     // ── Навигация ──────────────────────────────────────────
     connect(loginWgt, &LoginWidget::navigateToAdmin, this, &MainWindow::goAdmin);
@@ -58,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(adminWgt, &AdminWidget::navigateToLogin,        this, &MainWindow::goLogin);
     connect(adminWgt, &AdminWidget::loadDatabaseRequested,  this, &MainWindow::onLoadDb);
     connect(adminWgt, &AdminWidget::saveDatabaseRequested,  this, &MainWindow::onSaveDb);
+    connect(adminWgt, &AdminWidget::navigateToAnalytics, this, &MainWindow::goPieChart);
 
     connect(userWgt, &UserWidget::navigateToCreditForm,  this, &MainWindow::goCreditForm);
     connect(userWgt, &UserWidget::navigateToDepositForm, this, &MainWindow::goDepositForm);
@@ -81,6 +88,92 @@ MainWindow::MainWindow(QWidget *parent)
     connect(depositFormWgt, &DepositFormWidget::depositDataReady,  this, &MainWindow::onDepositReady);
 
     connect(successWgt, &SuccessWidget::navigateToUser, this, &MainWindow::goUser);
+
+
+
+    //-----ПРОПИСЫВАЮ НОВЫЙ ВИДЖЕТ ЗДЕСЬ, ПОТОМ НАДО В ОТДЕЛЬНЫЙ ФАЙЛ-----
+    //-----АНАЛИТИКА-----
+    QVBoxLayout* pie_chart_layout = new QVBoxLayout;
+    pie_chart_layout->setContentsMargins(32, 32, 32, 24);
+    pie_chart_layout->setSpacing(16);
+    pieChartWgt->setLayout(pie_chart_layout);
+
+
+    QLabel* chartTitle = new QLabel("АНАЛИТИКА");
+    chartTitle->setAlignment(Qt::AlignCenter);
+
+    pie_chart_layout->addWidget(chartTitle);
+
+    QFrame* divider = new QFrame;
+    divider->setFrameShape(QFrame::HLine);
+
+    pie_chart_layout->addWidget(divider);
+
+    series = new QPieSeries();
+    series->append("КРЕДИТЫ", 1);
+    series->append("ВКЛАДЫ", 1);
+    series->setHoleSize(0.4);
+
+    QPieSlice* slice1 = series->slices().at(0);
+    slice1->setLabelVisible(true);
+
+    QPieSlice* slice2 = series->slices().at(1);
+    slice2->setLabelVisible(true);
+
+    QChart* chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("");
+
+    chart->setBackgroundPen(Qt::NoPen);
+    chart->legend()->hide();
+    chart->setMargins(QMargins(0, 0, 0, 0));
+    chart->layout()->setContentsMargins(0, 0, 0, 0);
+
+    QChartView* chart_view = new QChartView(chart);
+    chart_view->setRenderHint(QPainter::Antialiasing);
+
+    chart_view->setMinimumHeight(420);
+    pie_chart_layout->addWidget(chart_view, 1);
+
+
+    QHBoxLayout* legend = new QHBoxLayout;
+    legend->setSpacing(24);
+    legend->setContentsMargins(0, 8, 0, 8);
+
+    auto makeLegendItem = [](const QString& color, const QString& label) -> QWidget* {
+        auto* w = new QWidget;
+        auto* h = new QHBoxLayout(w);
+        h->setContentsMargins(16, 10, 24, 10);
+        h->setSpacing(10);
+
+
+        auto* dot = new QLabel;
+        dot->setFixedSize(14, 14);
+        dot->setStyleSheet(QString(
+                               "background: %1; border-radius: 7px;"
+                               ).arg(color));
+        h->addWidget(dot);
+
+        auto* lbl = new QLabel(label);
+        lbl->setStyleSheet(QString(
+                               "font-size: 15px; font-weight: bold; color: %1; letter-spacing: 1px;"
+                               ).arg(color));
+        h->addWidget(lbl);
+        return w;
+    };
+
+    legend->addStretch();
+
+    legend->addStretch();
+    pie_chart_layout->addLayout(legend);
+
+    QPushButton* Btn = new QPushButton("← НАЗАД");
+    Btn->setMinimumHeight(50);
+
+    connect(Btn, &QPushButton::clicked, this, &MainWindow::goAdmin);
+    pie_chart_layout->addWidget(Btn);
+    //--------------------
+    //--------------------------------------------------------------------
 
     loadFile(currentFile);
     stack->setCurrentWidget(loginWgt);
@@ -166,6 +259,40 @@ void MainWindow::goUser()    { stack->setCurrentWidget(userWgt); }
 void MainWindow::goSuccess() { stack->setCurrentWidget(successWgt); }
 void MainWindow::goCreditForm()  { stack->setCurrentWidget(creditFormWgt); }
 void MainWindow::goDepositForm() { stack->setCurrentWidget(depositFormWgt); }
+void MainWindow::goPieChart() {
+    int credits  = 0, deposits = 0;
+    for (const auto& r : allRecords) {
+        if (r.type == OperationType::Credit)  credits++;
+        else                                   deposits++;
+    }
+
+    QPieSlice* s1 = series->slices().at(0);
+    QPieSlice* s2 = series->slices().at(1);
+
+    if (credits == 0 && deposits == 0) {
+        // Нет данных — показываем пустой серый чарт
+        s1->setValue(1);
+        s2->setValue(1);
+        s1->setLabel("КРЕДИТЫ: 0");
+        s2->setLabel("ВКЛАДЫ: 0");
+        s1->setBrush(QColor("#444466"));
+        s2->setBrush(QColor("#444466"));
+    } else {
+        s1->setValue(credits);
+        s2->setValue(deposits);
+        s1->setLabel(QString("КРЕДИТЫ: %1").arg(credits));
+        s2->setLabel(QString("ВКЛАДЫ: %1").arg(deposits));
+        s1->setBrush(QColor("#ffd166"));
+        s2->setBrush(QColor("#06d6a0"));
+    }
+
+    // Прячем сегмент если его значение 0
+    s1->setLabelVisible(credits  > 0);
+    s2->setLabelVisible(deposits > 0);
+
+    stack->setCurrentWidget(pieChartWgt);
+}
+
 
 void MainWindow::goCreditTable() {
     creditTableWgt->setRecords(toCreditList());
@@ -275,3 +402,5 @@ void MainWindow::onDepositUpdated(const DepositRecord& rec) {
     }
     saveFile(currentFile);
 }
+
+

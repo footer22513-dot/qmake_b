@@ -5,6 +5,8 @@
 #include <QStackedWidget>
 #include <QList>
 #include <QDate>
+#include <QtCharts/QtCharts>
+
 
 #include "bankrecord.h"
 #include "credittablewidget.h"
@@ -40,6 +42,11 @@ private:
     DepositFormWidget*  depositFormWgt;
     SuccessWidget*      successWgt;
 
+    //-----ДЛЯ АНАЛИТИКИ-----
+    QWidget* pieChartWgt;
+    QPieSeries* series;
+    //-----------------------
+
     QList<BankRecord> allRecords;
     QString           currentFile;
 
@@ -58,6 +65,7 @@ private slots:
     void goCreditForm();
     void goDepositForm();
     void goSuccess();
+    void goPieChart();
 
     void onCreditReady(const QString& fio, const QString& phone,
                        QDate issueDate, int days,

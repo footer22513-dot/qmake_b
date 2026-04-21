@@ -16,6 +16,7 @@ signals:
     void saveDatabaseRequested();
 
 private:
+    QPushButton* analytics;
     QPushButton* creditTableBtn;
     QPushButton* depositTableBtn;
     QPushButton* loadDbBtn;

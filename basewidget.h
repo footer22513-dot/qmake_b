@@ -19,6 +19,7 @@ signals:
     void navigateToCreditForm();
     void navigateToDepositForm();
     void navigateToSuccess();
+    void navigateToAnalytics();
 };
 
 #endif // BASEWIDGET_H

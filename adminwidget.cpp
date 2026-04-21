@@ -21,18 +21,21 @@ AdminWidget::AdminWidget(QWidget *parent) : BaseWidget(parent) {
         return b;
     };
 
+    analytics = btn("АНАЛИТИКА", "#6A1B9A");
     creditTableBtn  = btn("📋  ТАБЛИЦА ЗАЙМОВ",   "#388E3C");
     depositTableBtn = btn("💰  ТАБЛИЦА ВКЛАДОВ",  "#1976D2");
     loadDbBtn       = btn("📂  ЗАГРУЗИТЬ БАЗУ",   "#F57C00");
     saveDbBtn       = btn("💾  ВЫГРУЗИТЬ БАЗУ",   "#6A1B9A");
     backBtn         = btn("← НАЗАД",              "#555555");
 
+    connect(analytics, &QPushButton::clicked, this, &AdminWidget::navigateToAnalytics);
     connect(creditTableBtn,  &QPushButton::clicked, this, &AdminWidget::navigateToCreditTable);
     connect(depositTableBtn, &QPushButton::clicked, this, &AdminWidget::navigateToDepositTable);
     connect(loadDbBtn,       &QPushButton::clicked, this, &AdminWidget::loadDatabaseRequested);
     connect(saveDbBtn,       &QPushButton::clicked, this, &AdminWidget::saveDatabaseRequested);
     connect(backBtn,         &QPushButton::clicked, this, &AdminWidget::navigateToLogin);
 
+    layout->addWidget(analytics);
     layout->addWidget(creditTableBtn);
     layout->addWidget(depositTableBtn);
     layout->addSpacing(8);
