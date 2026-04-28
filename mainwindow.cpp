@@ -233,8 +233,8 @@ void MainWindow::goLogin()   { stack->setCurrentWidget(loginWgt); }
 void MainWindow::goAdmin()   { stack->setCurrentWidget(adminWgt); }
 void MainWindow::goUser()    { stack->setCurrentWidget(userWgt); }
 void MainWindow::goSuccess() { stack->setCurrentWidget(successWgt); }
-void MainWindow::goCreditForm()  { stack->setCurrentWidget(creditFormWgt); }
-void MainWindow::goDepositForm() { stack->setCurrentWidget(depositFormWgt); }
+void MainWindow::goCreditForm()  { creditFormWgt->resetForm(); stack->setCurrentWidget(creditFormWgt); }
+void MainWindow::goDepositForm() { depositFormWgt->resetForm(); stack->setCurrentWidget(depositFormWgt); }
 void MainWindow::goPieChart() {
     int credits = 0, deposits = 0;
     for (const auto& r : allRecords) {

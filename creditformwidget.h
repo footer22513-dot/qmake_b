@@ -13,6 +13,7 @@ class CreditFormWidget : public QWidget {
     Q_OBJECT
 public:
     explicit CreditFormWidget(QWidget *parent = nullptr);
+    void resetForm();
 
 signals:
     void navigateToUser();
