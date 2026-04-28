@@ -22,7 +22,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     successwidget.cpp \
-    userwidget.cpp
+    userwidget.cpp \
+    piechartwidget.cpp
 
 HEADERS += \
     adminwidget.h \
@@ -39,7 +40,8 @@ HEADERS += \
     loginwidget.h \
     mainwindow.h \
     successwidget.h \
-    userwidget.h
+    userwidget.h \
+    piechartwidget.h
 
 FORMS += \
     UserForm.ui \

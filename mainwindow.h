@@ -6,6 +6,7 @@
 #include <QList>
 #include <QDate>
 #include <QtCharts/QtCharts>
+#include "piechartwidget.h"
 
 
 #include "bankrecord.h"
@@ -43,8 +44,7 @@ private:
     SuccessWidget*      successWgt;
 
     //-----ДЛЯ АНАЛИТИКИ-----
-    QWidget* pieChartWgt;
-    QPieSeries* series;
+    PieChartWidget* pieChartWgt;
     //-----------------------
 
     QList<BankRecord> allRecords;

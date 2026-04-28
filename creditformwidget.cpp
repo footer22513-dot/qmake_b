@@ -175,4 +175,18 @@ void CreditFormWidget::onCreateCreditClicked() {
         earlyRepayCheck->isChecked()
         );
     emit navigateToSuccess();
+    // Reset form fields
+    fioInput->clear();
+    phoneInput->clear();
+    issueDateEdit->setDate(QDate::currentDate());
+    termCombo->setCurrentIndex(0);
+    daysInput->clear();
+    daysInput->setVisible(false);
+    rateTypeCombo->setCurrentIndex(0);
+    rateCombo->setCurrentIndex(0);
+    periodCombo->setCurrentIndex(0);
+    startSumInput->clear();
+    endSumLabel->setText("0.00 руб.");
+    earlyRepayCheck->setChecked(true);
 }
+
