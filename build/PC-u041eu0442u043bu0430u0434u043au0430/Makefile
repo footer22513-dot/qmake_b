@@ -17,7 +17,7 @@ CXX           = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefau
 DEFINES       = -DQT_QML_DEBUG -DQT_CHARTS_LIB -DQT_OPENGLWIDGETS_LIB -DQT_WIDGETS_LIB -DQT_OPENGL_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -g $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
 CXXFLAGS      = -pipe -stdlib=libc++ -g -std=gnu++1z $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk -mmacosx-version-min=13 -Wall -Wextra $(DEFINES)
-INCPATH       = -I../../../qmake_b -I. -I../../../../Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I../../../../Qt/6.11.0/macos/mkspecs/macx-clang -F/Users/nikolasgurov/Qt/6.11.0/macos/lib
+INCPATH       = -I../../../untitled2 -I. -I../../../../Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers -I../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/System/Library/Frameworks/OpenGL.framework/Headers -I../../../../Qt/6.11.0/macos/mkspecs/macx-clang -F/Users/nikolasgurov/Qt/6.11.0/macos/lib
 QMAKE         = /Users/nikolasgurov/Qt/6.11.0/macos/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = untitled21.0.0
-DISTDIR = /Users/nikolasgurov/claude_test/qmake_b/build/PC-u041eu0442u043bu0430u0434u043au0430/.tmp/untitled21.0.0
+DISTDIR = /Users/nikolasgurov/Documents/untitled2/build/PC-u041eu0442u043bu0430u0434u043au0430/.tmp/untitled21.0.0
 LINK          = /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang++
 LFLAGS        = -stdlib=libc++ -headerpad_max_install_names $(EXPORT_ARCH_ARGS) -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk -mmacosx-version-min=13 -Wl,-rpath,@executable_path/../Frameworks -Wl,-rpath,/Users/nikolasgurov/Qt/6.11.0/macos/lib
 LIBS          = $(SUBLIBS) -F/Users/nikolasgurov/Qt/6.11.0/macos/lib -framework QtCharts -framework QtOpenGLWidgets -framework QtWidgets -framework QtOpenGL -framework QtGui -framework AppKit -framework ImageIO -framework Metal -framework QtCore -framework IOKit -framework DiskArbitration -framework UniformTypeIdentifiers -framework OpenGL   
@@ -64,7 +64,6 @@ SOURCES       = ../../adminwidget.cpp \
 		../../loginwidget.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp \
-		../../piechartwidget.cpp \
 		../../successwidget.cpp \
 		../../userwidget.cpp moc_adminwidget.cpp \
 		moc_basewidget.cpp \
@@ -75,8 +74,7 @@ SOURCES       = ../../adminwidget.cpp \
 		moc_loginwidget.cpp \
 		moc_mainwindow.cpp \
 		moc_successwidget.cpp \
-		moc_userwidget.cpp \
-		moc_piechartwidget.cpp
+		moc_userwidget.cpp
 OBJECTS       = adminwidget.o \
 		bankrecord.o \
 		creditcalc.o \
@@ -89,7 +87,6 @@ OBJECTS       = adminwidget.o \
 		loginwidget.o \
 		main.o \
 		mainwindow.o \
-		piechartwidget.o \
 		successwidget.o \
 		userwidget.o \
 		moc_adminwidget.o \
@@ -101,8 +98,7 @@ OBJECTS       = adminwidget.o \
 		moc_loginwidget.o \
 		moc_mainwindow.o \
 		moc_successwidget.o \
-		moc_userwidget.o \
-		moc_piechartwidget.o
+		moc_userwidget.o
 DIST          = /Qt/6.11.0/macos/mkspecs/features/spec_pre.prf \
 		/Qt/6.11.0/macos/mkspecs/features/device_config.prf \
 		/Qt/6.11.0/macos/mkspecs/common/unix.conf \
@@ -322,7 +318,6 @@ DIST          = /Qt/6.11.0/macos/mkspecs/features/spec_pre.prf \
 		/Qt/6.11.0/macos/mkspecs/features/qt_config.prf \
 		/Qt/6.11.0/macos/mkspecs/macx-clang/qmake.conf \
 		/Qt/6.11.0/macos/mkspecs/features/spec_post.prf \
-		../../.qmake.stash \
 		/Qt/6.11.0/macos/mkspecs/features/exclusive_builds.prf \
 		/Qt/6.11.0/macos/mkspecs/features/mac/sdk.prf \
 		/Qt/6.11.0/macos/mkspecs/features/toolchain.prf \
@@ -366,8 +361,7 @@ DIST          = /Qt/6.11.0/macos/mkspecs/features/spec_pre.prf \
 		../../loginwidget.h \
 		../../mainwindow.h \
 		../../successwidget.h \
-		../../userwidget.h \
-		../../piechartwidget.h ../../adminwidget.cpp \
+		../../userwidget.h ../../adminwidget.cpp \
 		../../bankrecord.cpp \
 		../../creditcalc.cpp \
 		../../creditformwidget.cpp \
@@ -379,7 +373,6 @@ DIST          = /Qt/6.11.0/macos/mkspecs/features/spec_pre.prf \
 		../../loginwidget.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp \
-		../../piechartwidget.cpp \
 		../../successwidget.cpp \
 		../../userwidget.cpp
 QMAKE_TARGET  = untitled2
@@ -390,12 +383,12 @@ TARGET        = untitled2.app/Contents/MacOS/untitled2
 EXPORT_QMAKE_MAC_SDK = macosx
 EXPORT_QMAKE_MAC_SDK_VERSION = 15.5
 EXPORT_QMAKE_XCODE_DEVELOPER_PATH = /Applications/Xcode.app/Contents/Developer
-EXPORT__QMAKE_STASH_ = /Users/nikolasgurov/claude_test/qmake_b/build/PC-u041eu0442u043bu0430u0434u043au0430/.qmake.stash
+EXPORT__QMAKE_STASH_ = 
 EXPORT_VALID_ARCHS = x86_64 arm64
 EXPORT_DEFAULT_ARCHS = arm64
 EXPORT_ARCHS = $(filter $(EXPORT_VALID_ARCHS), $(if $(ARCHS), $(ARCHS), $(if $(EXPORT_DEFAULT_ARCHS), $(EXPORT_DEFAULT_ARCHS), $(EXPORT_VALID_ARCHS))))
 EXPORT_ARCH_ARGS = $(foreach arch, $(if $(EXPORT_ARCHS), $(EXPORT_ARCHS), $(EXPORT_VALID_ARCHS)), -arch $(arch))
-EXPORT__PRO_FILE_ = /Users/nikolasgurov/claude_test/qmake_b/untitled2.pro
+EXPORT__PRO_FILE_ = /Users/nikolasgurov/Documents/untitled2/untitled2.pro
 
 
 include /Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/features/mac/sdk.mk
@@ -625,7 +618,6 @@ Makefile: ../../untitled2.pro ../../../../Qt/6.11.0/macos/mkspecs/features/spec_
 		../../../../Qt/6.11.0/macos/mkspecs/features/qt_config.prf \
 		../../../../Qt/6.11.0/macos/mkspecs/macx-clang/qmake.conf \
 		../../../../Qt/6.11.0/macos/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		../../../../Qt/6.11.0/macos/mkspecs/features/exclusive_builds.prf \
 		../../../../Qt/6.11.0/macos/mkspecs/features/mac/sdk.prf \
 		../../../../Qt/6.11.0/macos/mkspecs/features/toolchain.prf \
@@ -882,7 +874,6 @@ Makefile: ../../untitled2.pro ../../../../Qt/6.11.0/macos/mkspecs/features/spec_
 ../../../../Qt/6.11.0/macos/mkspecs/features/qt_config.prf:
 ../../../../Qt/6.11.0/macos/mkspecs/macx-clang/qmake.conf:
 ../../../../Qt/6.11.0/macos/mkspecs/features/spec_post.prf:
-.qmake.stash:
 ../../../../Qt/6.11.0/macos/mkspecs/features/exclusive_builds.prf:
 ../../../../Qt/6.11.0/macos/mkspecs/features/mac/sdk.prf:
 ../../../../Qt/6.11.0/macos/mkspecs/features/toolchain.prf:
@@ -943,8 +934,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../adminwidget.h ../../bankrecord.h ../../basewidget.h ../../constants.h ../../creditcalc.h ../../creditformwidget.h ../../credittablewidget.h ../../datahandler.h ../../depositcalc.h ../../depositformwidget.h ../../depositwidget.h ../../loginwidget.h ../../mainwindow.h ../../successwidget.h ../../userwidget.h ../../piechartwidget.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../adminwidget.cpp ../../bankrecord.cpp ../../creditcalc.cpp ../../creditformwidget.cpp ../../credittablewidget.cpp ../../datahandler.cpp ../../depositcalc.cpp ../../depositformwidget.cpp ../../depositwidget.cpp ../../loginwidget.cpp ../../main.cpp ../../mainwindow.cpp ../../piechartwidget.cpp ../../successwidget.cpp ../../userwidget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../adminwidget.h ../../bankrecord.h ../../basewidget.h ../../constants.h ../../creditcalc.h ../../creditformwidget.h ../../credittablewidget.h ../../datahandler.h ../../depositcalc.h ../../depositformwidget.h ../../depositwidget.h ../../loginwidget.h ../../mainwindow.h ../../successwidget.h ../../userwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../adminwidget.cpp ../../bankrecord.cpp ../../creditcalc.cpp ../../creditformwidget.cpp ../../credittablewidget.cpp ../../datahandler.cpp ../../depositcalc.cpp ../../depositformwidget.cpp ../../depositwidget.cpp ../../loginwidget.cpp ../../main.cpp ../../mainwindow.cpp ../../successwidget.cpp ../../userwidget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../UserForm.ui ../../mainwindow.ui $(DISTDIR)/
 
 
@@ -955,7 +946,6 @@ clean: compiler_clean
 
 distclean: clean 
 	-$(DEL_FILE) -r untitled2.app
-	-$(DEL_FILE) .qmake.stash
 	-$(DEL_FILE) Makefile
 
 
@@ -974,19 +964,19 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_adminwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp moc_piechartwidget.cpp
+compiler_moc_header_make_all: moc_adminwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_adminwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp moc_piechartwidget.cpp
+	-$(DEL_FILE) moc_adminwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp
 moc_adminwidget.cpp: ../../adminwidget.h \
 		../../basewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../adminwidget.h -o moc_adminwidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../adminwidget.h -o moc_adminwidget.cpp
 
 moc_basewidget.cpp: ../../basewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../basewidget.h -o moc_basewidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../basewidget.h -o moc_basewidget.cpp
 
 moc_creditformwidget.cpp: ../../creditformwidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -997,7 +987,7 @@ moc_creditformwidget.cpp: ../../creditformwidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QDateEdit \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../creditformwidget.h -o moc_creditformwidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../creditformwidget.h -o moc_creditformwidget.cpp
 
 moc_credittablewidget.cpp: ../../credittablewidget.h \
 		../../basewidget.h \
@@ -1005,7 +995,7 @@ moc_credittablewidget.cpp: ../../credittablewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QList \
 		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../credittablewidget.h -o moc_credittablewidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../credittablewidget.h -o moc_credittablewidget.cpp
 
 moc_depositformwidget.cpp: ../../depositformwidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -1015,7 +1005,7 @@ moc_depositformwidget.cpp: ../../depositformwidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QDateEdit \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../depositformwidget.h -o moc_depositformwidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../depositformwidget.h -o moc_depositformwidget.cpp
 
 moc_depositwidget.cpp: ../../depositwidget.h \
 		../../basewidget.h \
@@ -1023,13 +1013,13 @@ moc_depositwidget.cpp: ../../depositwidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QList \
 		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../depositwidget.h -o moc_depositwidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../depositwidget.h -o moc_depositwidget.cpp
 
 moc_loginwidget.cpp: ../../loginwidget.h \
 		../../basewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../loginwidget.h -o moc_loginwidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../loginwidget.h -o moc_loginwidget.cpp
 
 moc_mainwindow.cpp: ../../mainwindow.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QMainWindow \
@@ -1042,29 +1032,19 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		../../basewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../depositwidget.h \
-		../../piechartwidget.h \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
 
 moc_successwidget.cpp: ../../successwidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../successwidget.h -o moc_successwidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../successwidget.h -o moc_successwidget.cpp
 
 moc_userwidget.cpp: ../../userwidget.h \
 		../../basewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../userwidget.h -o moc_userwidget.cpp
-
-moc_piechartwidget.cpp: ../../piechartwidget.h \
-		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QTimer \
-		../../../../Qt/6.11.0/macos/libexec/moc
-	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../piechartwidget.h -o moc_piechartwidget.cpp
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/Documents/untitled2 -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../userwidget.h -o moc_userwidget.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -1210,9 +1190,6 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		../../basewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../depositwidget.h \
-		../../piechartwidget.h \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QTimer \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
@@ -1227,9 +1204,6 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../basewidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		../../depositwidget.h \
-		../../piechartwidget.h \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QTimer \
 		ui_mainwindow.h \
 		../../loginwidget.h \
 		../../adminwidget.h \
@@ -1251,19 +1225,6 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QLayout \
 		../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers/QPen
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
-
-piechartwidget.o: ../../piechartwidget.cpp ../../piechartwidget.h \
-		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QTimer \
-		../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers/QPainter \
-		../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers/QPainterPath \
-		../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers/QMouseEvent \
-		../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers/QRadialGradient \
-		../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers/QConicalGradient \
-		../../../../Qt/6.11.0/macos/lib/QtGui.framework/Headers/QLinearGradient \
-		../../../../Qt/6.11.0/macos/lib/QtCore.framework/Headers/QtMath
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o piechartwidget.o ../../piechartwidget.cpp
 
 successwidget.o: ../../successwidget.cpp ../../successwidget.h \
 		../../../../Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -1310,9 +1271,6 @@ moc_successwidget.o: moc_successwidget.cpp
 
 moc_userwidget.o: moc_userwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_userwidget.o moc_userwidget.cpp
-
-moc_piechartwidget.o: moc_piechartwidget.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_piechartwidget.o moc_piechartwidget.cpp
 
 ####### Install
 
