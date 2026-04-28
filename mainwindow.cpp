@@ -17,7 +17,6 @@
 #include <QDir>
 #include <QFileInfo>
 #include <QLayout>
-#include "piechartwidget.h"
 #include <QtCharts/QtCharts>
 #include <QPen>
 
@@ -40,7 +39,7 @@ MainWindow::MainWindow(QWidget *parent)
     creditFormWgt  = new CreditFormWidget(this);
     depositFormWgt = new DepositFormWidget(this);
     successWgt     = new SuccessWidget(this);
-    pieChartWgt = new PieChartWidget();
+    pieChartWgt = new QWidget();
 
     stack = new QStackedWidget(this);
     setCentralWidget(stack);
@@ -110,6 +109,31 @@ MainWindow::MainWindow(QWidget *parent)
 
     pie_chart_layout->addWidget(divider);
 
+    series = new QPieSeries();
+    series->append("КРЕДИТЫ", 1);
+    series->append("ВКЛАДЫ", 1);
+    series->setHoleSize(0.4);
+
+    QPieSlice* slice1 = series->slices().at(0);
+    slice1->setLabelVisible(true);
+
+    QPieSlice* slice2 = series->slices().at(1);
+    slice2->setLabelVisible(true);
+
+    QChart* chart = new QChart();
+    chart->addSeries(series);
+    chart->setTitle("");
+
+    chart->setBackgroundPen(Qt::NoPen);
+    chart->legend()->hide();
+    chart->setMargins(QMargins(0, 0, 0, 0));
+    chart->layout()->setContentsMargins(0, 0, 0, 0);
+
+    QChartView* chart_view = new QChartView(chart);
+    chart_view->setRenderHint(QPainter::Antialiasing);
+
+    chart_view->setMinimumHeight(420);
+    pie_chart_layout->addWidget(chart_view, 1);
 
 
     QHBoxLayout* legend = new QHBoxLayout;
@@ -233,16 +257,39 @@ void MainWindow::goLogin()   { stack->setCurrentWidget(loginWgt); }
 void MainWindow::goAdmin()   { stack->setCurrentWidget(adminWgt); }
 void MainWindow::goUser()    { stack->setCurrentWidget(userWgt); }
 void MainWindow::goSuccess() { stack->setCurrentWidget(successWgt); }
-void MainWindow::goCreditForm()  { creditFormWgt->resetForm(); stack->setCurrentWidget(creditFormWgt); }
-void MainWindow::goDepositForm() { depositFormWgt->resetForm(); stack->setCurrentWidget(depositFormWgt); }
+void MainWindow::goCreditForm()  { stack->setCurrentWidget(creditFormWgt); }
+void MainWindow::goDepositForm() { stack->setCurrentWidget(depositFormWgt); }
 void MainWindow::goPieChart() {
-    int credits = 0, deposits = 0;
+    int credits  = 0, deposits = 0;
     for (const auto& r : allRecords) {
-        if (r.type == OperationType::Credit) credits++;
-        else deposits++;
+        if (r.type == OperationType::Credit)  credits++;
+        else                                   deposits++;
     }
-    // Update chart
-    static_cast<PieChartWidget*>(pieChartWgt)->updateData(credits, deposits);
+
+    QPieSlice* s1 = series->slices().at(0);
+    QPieSlice* s2 = series->slices().at(1);
+
+    if (credits == 0 && deposits == 0) {
+        // Нет данных — показываем пустой серый чарт
+        s1->setValue(1);
+        s2->setValue(1);
+        s1->setLabel("КРЕДИТЫ: 0");
+        s2->setLabel("ВКЛАДЫ: 0");
+        s1->setBrush(QColor("#444466"));
+        s2->setBrush(QColor("#444466"));
+    } else {
+        s1->setValue(credits);
+        s2->setValue(deposits);
+        s1->setLabel(QString("КРЕДИТЫ: %1").arg(credits));
+        s2->setLabel(QString("ВКЛАДЫ: %1").arg(deposits));
+        s1->setBrush(QColor("#ffd166"));
+        s2->setBrush(QColor("#06d6a0"));
+    }
+
+    // Прячем сегмент если его значение 0
+    s1->setLabelVisible(credits  > 0);
+    s2->setLabelVisible(deposits > 0);
+
     stack->setCurrentWidget(pieChartWgt);
 }
 

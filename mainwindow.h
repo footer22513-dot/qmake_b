@@ -5,10 +5,12 @@
 #include <QStackedWidget>
 #include <QList>
 #include <QDate>
+#include <QtCharts/QtCharts>
+
+
 #include "bankrecord.h"
 #include "credittablewidget.h"
 #include "depositwidget.h"
-#include "piechartwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,26 +30,27 @@ public:
     ~MainWindow() override;
 
 private:
-    Ui::MainWindow* ui;
-    QStackedWidget* stack;
+    Ui::MainWindow*     ui;
+    QStackedWidget*     stack;
 
-    LoginWidget* loginWgt;
-    AdminWidget* adminWgt;
-    UserWidget* userWgt;
-    CreditTableWidget* creditTableWgt;
+    LoginWidget*        loginWgt;
+    AdminWidget*        adminWgt;
+    UserWidget*         userWgt;
+    CreditTableWidget*  creditTableWgt;
     DepositTableWidget* depositTableWgt;
-    CreditFormWidget* creditFormWgt;
-    DepositFormWidget* depositFormWgt;
-    SuccessWidget* successWgt;
+    CreditFormWidget*   creditFormWgt;
+    DepositFormWidget*  depositFormWgt;
+    SuccessWidget*      successWgt;
 
     //-----ДЛЯ АНАЛИТИКИ-----
-    PieChartWidget* pieChartWgt;
+    QWidget* pieChartWgt;
+    QPieSeries* series;
     //-----------------------
 
     QList<BankRecord> allRecords;
-    QString currentFile;
+    QString           currentFile;
 
-    QList<CreditRecord> toCreditList() const;
+    QList<CreditRecord>  toCreditList()  const;
     QList<DepositRecord> toDepositList() const;
 
     void loadFile(const QString& path);
@@ -77,6 +80,7 @@ private slots:
     void onCreditDeleted(int id);
     void onDepositDeleted(int id);
 
+    // Новые слоты для обновления записей
     void onCreditUpdated(const CreditRecord& rec);
     void onDepositUpdated(const DepositRecord& rec);
 

@@ -12,7 +12,6 @@ class DepositFormWidget : public QWidget {
     Q_OBJECT
 public:
     explicit DepositFormWidget(QWidget *parent = nullptr);
-    void resetForm();
 
 signals:
     void navigateToUser();

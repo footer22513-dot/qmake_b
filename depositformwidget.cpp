@@ -139,20 +139,6 @@ void DepositFormWidget::calculateEndSum() {
     }
 }
 
-void DepositFormWidget::resetForm() {
-    fioInput->clear();
-    phoneInput->clear();
-    issueDateEdit->setDate(QDate::currentDate());
-    termCombo->setCurrentIndex(0);
-    daysInput->clear();
-    daysInput->setVisible(false);
-    rateTypeCombo->setCurrentIndex(0);
-    rateCombo->setCurrentIndex(0);
-    periodCombo->setCurrentIndex(0);
-    startSumInput->clear();
-    endSumLabel->setText("0.00 руб.");
-}
-
 void DepositFormWidget::onCreateDepositClicked() {
     if (fioInput->text().trimmed().isEmpty()) {
         QMessageBox::warning(this, "Ошибка", "Укажите ФИО клиента."); return;
