@@ -7,11 +7,11 @@
 #include <QDate>
 #include <QtCharts/QtCharts>
 #include "piechartwidget.h"
-
-
 #include "bankrecord.h"
 #include "credittablewidget.h"
 #include "depositwidget.h"
+#include "barchartwidget.h"
+#include "linechartwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -43,9 +43,16 @@ private:
     DepositFormWidget*  depositFormWgt;
     SuccessWidget*      successWgt;
 
-    //-----ДЛЯ АНАЛИТИКИ-----
-    PieChartWidget* pieChartWgt;
-    //-----------------------
+    PieChartWidget*     pieChartWgt;
+    QWidget*            analyticsContainer;  // ← добавлено
+
+    BarChartWidget*     barChartWgt;
+    LineChartWidget*    lineChartWgt;
+    QStackedWidget*     analyticsStack;
+
+    QPushButton*        pieBtn;
+    QPushButton*        barBtn;
+    QPushButton*        lineBtn;
 
     QList<BankRecord> allRecords;
     QString           currentFile;
@@ -70,7 +77,9 @@ private slots:
     void onCreditReady(const QString& fio, const QString& phone,
                        QDate issueDate, int days,
                        int rateType, double rate, int period,
-                       double startSum, double endSum, bool earlyRepay);
+                       double startSum, double endSum, bool earlyRepay,
+                       double penaltyAmount, double penaltyPercent,
+                       int creditType);
 
     void onDepositReady(const QString& fio, const QString& phone,
                         QDate issueDate, int days,
@@ -80,7 +89,6 @@ private slots:
     void onCreditDeleted(int id);
     void onDepositDeleted(int id);
 
-    // Новые слоты для обновления записей
     void onCreditUpdated(const CreditRecord& rec);
     void onDepositUpdated(const DepositRecord& rec);
 

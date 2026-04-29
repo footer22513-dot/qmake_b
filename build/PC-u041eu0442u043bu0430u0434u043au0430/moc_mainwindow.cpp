@@ -85,6 +85,9 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         "startSum",
         "endSum",
         "earlyRepay",
+        "penaltyAmount",
+        "penaltyPercent",
+        "creditType",
         "onDepositReady",
         "onCreditDeleted",
         "id",
@@ -118,37 +121,38 @@ template <> constexpr inline auto MainWindow::qt_create_metaobjectdata<qt_meta_t
         // Slot 'goPieChart'
         QtMocHelpers::SlotData<void()>(10, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onCreditReady'
-        QtMocHelpers::SlotData<void(const QString &, const QString &, QDate, int, int, double, int, double, double, bool)>(11, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const QString &, const QString &, QDate, int, int, double, int, double, double, bool, double, double, int)>(11, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { QMetaType::QString, 12 }, { QMetaType::QString, 13 }, { QMetaType::QDate, 14 }, { QMetaType::Int, 15 },
             { QMetaType::Int, 16 }, { QMetaType::Double, 17 }, { QMetaType::Int, 18 }, { QMetaType::Double, 19 },
-            { QMetaType::Double, 20 }, { QMetaType::Bool, 21 },
+            { QMetaType::Double, 20 }, { QMetaType::Bool, 21 }, { QMetaType::Double, 22 }, { QMetaType::Double, 23 },
+            { QMetaType::Int, 24 },
         }}),
         // Slot 'onDepositReady'
-        QtMocHelpers::SlotData<void(const QString &, const QString &, QDate, int, int, double, int, double, double)>(22, 2, QMC::AccessPrivate, QMetaType::Void, {{
+        QtMocHelpers::SlotData<void(const QString &, const QString &, QDate, int, int, double, int, double, double)>(25, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { QMetaType::QString, 12 }, { QMetaType::QString, 13 }, { QMetaType::QDate, 14 }, { QMetaType::Int, 15 },
             { QMetaType::Int, 16 }, { QMetaType::Double, 17 }, { QMetaType::Int, 18 }, { QMetaType::Double, 19 },
             { QMetaType::Double, 20 },
         }}),
         // Slot 'onCreditDeleted'
-        QtMocHelpers::SlotData<void(int)>(23, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 24 },
+        QtMocHelpers::SlotData<void(int)>(26, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 27 },
         }}),
         // Slot 'onDepositDeleted'
-        QtMocHelpers::SlotData<void(int)>(25, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { QMetaType::Int, 24 },
+        QtMocHelpers::SlotData<void(int)>(28, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { QMetaType::Int, 27 },
         }}),
         // Slot 'onCreditUpdated'
-        QtMocHelpers::SlotData<void(const CreditRecord &)>(26, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 27, 28 },
+        QtMocHelpers::SlotData<void(const CreditRecord &)>(29, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 30, 31 },
         }}),
         // Slot 'onDepositUpdated'
-        QtMocHelpers::SlotData<void(const DepositRecord &)>(29, 2, QMC::AccessPrivate, QMetaType::Void, {{
-            { 0x80000000 | 30, 28 },
+        QtMocHelpers::SlotData<void(const DepositRecord &)>(32, 2, QMC::AccessPrivate, QMetaType::Void, {{
+            { 0x80000000 | 33, 31 },
         }}),
         // Slot 'onLoadDb'
-        QtMocHelpers::SlotData<void()>(31, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(34, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onSaveDb'
-        QtMocHelpers::SlotData<void()>(32, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(35, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -181,7 +185,7 @@ void MainWindow::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 6: _t->goDepositForm(); break;
         case 7: _t->goSuccess(); break;
         case 8: _t->goPieChart(); break;
-        case 9: _t->onCreditReady((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QDate>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[7])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[8])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[9])),(*reinterpret_cast<std::add_pointer_t<bool>>(_a[10]))); break;
+        case 9: _t->onCreditReady((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QDate>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[7])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[8])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[9])),(*reinterpret_cast<std::add_pointer_t<bool>>(_a[10])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[11])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[12])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[13]))); break;
         case 10: _t->onDepositReady((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QDate>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[7])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[8])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[9]))); break;
         case 11: _t->onCreditDeleted((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;
         case 12: _t->onDepositDeleted((*reinterpret_cast<std::add_pointer_t<int>>(_a[1]))); break;

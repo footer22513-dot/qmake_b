@@ -14,6 +14,7 @@ public:
     explicit DepositFormWidget(QWidget *parent = nullptr);
 
 signals:
+    void exportAnalyticsRequested();
     void navigateToUser();
     void navigateToSuccess();
     void depositDataReady(const QString& fio, const QString& phone,
@@ -24,6 +25,7 @@ signals:
 private slots:
     void calculateEndSum();
     void onCreateDepositClicked();
+    void onExportAnalyticsClicked();
 
 private:
     QLineEdit*   fioInput;
@@ -36,7 +38,10 @@ private:
     QComboBox*   periodCombo;
     QLineEdit*   startSumInput;
     QLabel*      endSumLabel;
+    QLineEdit*   penaltyAmountInput;
+    QLineEdit*   penaltyPercentInput;
     QPushButton* createBtn;
+    QPushButton* exportAnalyticsBtn;
     QPushButton* backBtn;
 
     int    selectedDays() const;

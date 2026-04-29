@@ -40,8 +40,9 @@ template <> constexpr inline auto DepositFormWidget::qt_create_metaobjectdata<qt
     namespace QMC = QtMocConstants;
     QtMocHelpers::StringRefStorage qt_stringData {
         "DepositFormWidget",
-        "navigateToUser",
+        "exportAnalyticsRequested",
         "",
+        "navigateToUser",
         "navigateToSuccess",
         "depositDataReady",
         "fio",
@@ -54,24 +55,29 @@ template <> constexpr inline auto DepositFormWidget::qt_create_metaobjectdata<qt
         "startSum",
         "endSum",
         "calculateEndSum",
-        "onCreateDepositClicked"
+        "onCreateDepositClicked",
+        "onExportAnalyticsClicked"
     };
 
     QtMocHelpers::UintData qt_methods {
-        // Signal 'navigateToUser'
+        // Signal 'exportAnalyticsRequested'
         QtMocHelpers::SignalData<void()>(1, 2, QMC::AccessPublic, QMetaType::Void),
-        // Signal 'navigateToSuccess'
+        // Signal 'navigateToUser'
         QtMocHelpers::SignalData<void()>(3, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'navigateToSuccess'
+        QtMocHelpers::SignalData<void()>(4, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'depositDataReady'
-        QtMocHelpers::SignalData<void(const QString &, const QString &, QDate, int, int, double, int, double, double)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
-            { QMetaType::QString, 5 }, { QMetaType::QString, 6 }, { QMetaType::QDate, 7 }, { QMetaType::Int, 8 },
-            { QMetaType::Int, 9 }, { QMetaType::Double, 10 }, { QMetaType::Int, 11 }, { QMetaType::Double, 12 },
-            { QMetaType::Double, 13 },
+        QtMocHelpers::SignalData<void(const QString &, const QString &, QDate, int, int, double, int, double, double)>(5, 2, QMC::AccessPublic, QMetaType::Void, {{
+            { QMetaType::QString, 6 }, { QMetaType::QString, 7 }, { QMetaType::QDate, 8 }, { QMetaType::Int, 9 },
+            { QMetaType::Int, 10 }, { QMetaType::Double, 11 }, { QMetaType::Int, 12 }, { QMetaType::Double, 13 },
+            { QMetaType::Double, 14 },
         }}),
         // Slot 'calculateEndSum'
-        QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
-        // Slot 'onCreateDepositClicked'
         QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onCreateDepositClicked'
+        QtMocHelpers::SlotData<void()>(16, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onExportAnalyticsClicked'
+        QtMocHelpers::SlotData<void()>(17, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -95,20 +101,24 @@ void DepositFormWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
     auto *_t = static_cast<DepositFormWidget *>(_o);
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
-        case 0: _t->navigateToUser(); break;
-        case 1: _t->navigateToSuccess(); break;
-        case 2: _t->depositDataReady((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QDate>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[7])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[8])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[9]))); break;
-        case 3: _t->calculateEndSum(); break;
-        case 4: _t->onCreateDepositClicked(); break;
+        case 0: _t->exportAnalyticsRequested(); break;
+        case 1: _t->navigateToUser(); break;
+        case 2: _t->navigateToSuccess(); break;
+        case 3: _t->depositDataReady((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QDate>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[7])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[8])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[9]))); break;
+        case 4: _t->calculateEndSum(); break;
+        case 5: _t->onCreateDepositClicked(); break;
+        case 6: _t->onExportAnalyticsClicked(); break;
         default: ;
         }
     }
     if (_c == QMetaObject::IndexOfMethod) {
-        if (QtMocHelpers::indexOfMethod<void (DepositFormWidget::*)()>(_a, &DepositFormWidget::navigateToUser, 0))
+        if (QtMocHelpers::indexOfMethod<void (DepositFormWidget::*)()>(_a, &DepositFormWidget::exportAnalyticsRequested, 0))
             return;
-        if (QtMocHelpers::indexOfMethod<void (DepositFormWidget::*)()>(_a, &DepositFormWidget::navigateToSuccess, 1))
+        if (QtMocHelpers::indexOfMethod<void (DepositFormWidget::*)()>(_a, &DepositFormWidget::navigateToUser, 1))
             return;
-        if (QtMocHelpers::indexOfMethod<void (DepositFormWidget::*)(const QString & , const QString & , QDate , int , int , double , int , double , double )>(_a, &DepositFormWidget::depositDataReady, 2))
+        if (QtMocHelpers::indexOfMethod<void (DepositFormWidget::*)()>(_a, &DepositFormWidget::navigateToSuccess, 2))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (DepositFormWidget::*)(const QString & , const QString & , QDate , int , int , double , int , double , double )>(_a, &DepositFormWidget::depositDataReady, 3))
             return;
     }
 }
@@ -132,33 +142,39 @@ int DepositFormWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 7)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 7;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 7)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 7;
     }
     return _id;
 }
 
 // SIGNAL 0
-void DepositFormWidget::navigateToUser()
+void DepositFormWidget::exportAnalyticsRequested()
 {
     QMetaObject::activate(this, &staticMetaObject, 0, nullptr);
 }
 
 // SIGNAL 1
-void DepositFormWidget::navigateToSuccess()
+void DepositFormWidget::navigateToUser()
 {
     QMetaObject::activate(this, &staticMetaObject, 1, nullptr);
 }
 
 // SIGNAL 2
+void DepositFormWidget::navigateToSuccess()
+{
+    QMetaObject::activate(this, &staticMetaObject, 2, nullptr);
+}
+
+// SIGNAL 3
 void DepositFormWidget::depositDataReady(const QString & _t1, const QString & _t2, QDate _t3, int _t4, int _t5, double _t6, int _t7, double _t8, double _t9)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1, _t2, _t3, _t4, _t5, _t6, _t7, _t8, _t9);
+    QMetaObject::activate<void>(this, &staticMetaObject, 3, nullptr, _t1, _t2, _t3, _t4, _t5, _t6, _t7, _t8, _t9);
 }
 QT_WARNING_POP

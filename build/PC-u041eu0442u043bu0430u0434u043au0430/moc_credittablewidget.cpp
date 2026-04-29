@@ -50,7 +50,9 @@ template <> constexpr inline auto CreditTableWidget::qt_create_metaobjectdata<qt
         "onDeleteClicked",
         "onItemChanged",
         "QTableWidgetItem*",
-        "item"
+        "item",
+        "onEarlyRepayClicked",
+        "onExportReport"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -72,6 +74,10 @@ template <> constexpr inline auto CreditTableWidget::qt_create_metaobjectdata<qt
         QtMocHelpers::SlotData<void(QTableWidgetItem *)>(10, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 11, 12 },
         }}),
+        // Slot 'onEarlyRepayClicked'
+        QtMocHelpers::SlotData<void()>(13, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onExportReport'
+        QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -101,6 +107,8 @@ void CreditTableWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, in
         case 3: _t->onResetClicked(); break;
         case 4: _t->onDeleteClicked(); break;
         case 5: _t->onItemChanged((*reinterpret_cast<std::add_pointer_t<QTableWidgetItem*>>(_a[1]))); break;
+        case 6: _t->onEarlyRepayClicked(); break;
+        case 7: _t->onExportReport(); break;
         default: ;
         }
     }
@@ -131,14 +139,14 @@ int CreditTableWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 8)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 8;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 8)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 6;
+        _id -= 8;
     }
     return _id;
 }

@@ -7,6 +7,7 @@
 enum class OperationType { Credit, Deposit };
 enum class RateType      { Fixed = 0, DependsOnSum = 1, DependsOnTerm = 2 };
 enum class PaymentPeriod { Monthly = 0, Quarterly = 1, Yearly = 2 };
+enum class CreditType    { Simple = 0, Annuity = 1, Differentiated = 2 };   // <-- NEW
 
 struct BankRecord {
     int           id            = 0;
@@ -23,6 +24,7 @@ struct BankRecord {
     bool          isEarlyRepaymentAllowed = true;
     double        penaltyAmount  = 0.0;
     double        penaltyPercent = 0.0;
+    CreditType    creditType     = CreditType::Simple;
 
     BankRecord() = default;
     QStringList toCsvRow() const;

@@ -54,6 +54,7 @@ OBJECTS_DIR   = ./
 
 SOURCES       = ../../adminwidget.cpp \
 		../../bankrecord.cpp \
+		../../barchartwidget.cpp \
 		../../creditcalc.cpp \
 		../../creditformwidget.cpp \
 		../../credittablewidget.cpp \
@@ -61,17 +62,20 @@ SOURCES       = ../../adminwidget.cpp \
 		../../depositcalc.cpp \
 		../../depositformwidget.cpp \
 		../../depositwidget.cpp \
+		../../linechartwidget.cpp \
 		../../loginwidget.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp \
 		../../successwidget.cpp \
 		../../userwidget.cpp \
 		../../piechartwidget.cpp moc_adminwidget.cpp \
+		moc_barchartwidget.cpp \
 		moc_basewidget.cpp \
 		moc_creditformwidget.cpp \
 		moc_credittablewidget.cpp \
 		moc_depositformwidget.cpp \
 		moc_depositwidget.cpp \
+		moc_linechartwidget.cpp \
 		moc_loginwidget.cpp \
 		moc_mainwindow.cpp \
 		moc_successwidget.cpp \
@@ -79,6 +83,7 @@ SOURCES       = ../../adminwidget.cpp \
 		moc_piechartwidget.cpp
 OBJECTS       = adminwidget.o \
 		bankrecord.o \
+		barchartwidget.o \
 		creditcalc.o \
 		creditformwidget.o \
 		credittablewidget.o \
@@ -86,6 +91,7 @@ OBJECTS       = adminwidget.o \
 		depositcalc.o \
 		depositformwidget.o \
 		depositwidget.o \
+		linechartwidget.o \
 		loginwidget.o \
 		main.o \
 		mainwindow.o \
@@ -93,11 +99,13 @@ OBJECTS       = adminwidget.o \
 		userwidget.o \
 		piechartwidget.o \
 		moc_adminwidget.o \
+		moc_barchartwidget.o \
 		moc_basewidget.o \
 		moc_creditformwidget.o \
 		moc_credittablewidget.o \
 		moc_depositformwidget.o \
 		moc_depositwidget.o \
+		moc_linechartwidget.o \
 		moc_loginwidget.o \
 		moc_mainwindow.o \
 		moc_successwidget.o \
@@ -354,6 +362,7 @@ DIST          = /Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/features/spec_pre.pr
 		/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/features/lex.prf \
 		../../../../untitled2.pro ../../adminwidget.h \
 		../../bankrecord.h \
+		../../barchartwidget.h \
 		../../basewidget.h \
 		../../constants.h \
 		../../creditcalc.h \
@@ -363,12 +372,14 @@ DIST          = /Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/features/spec_pre.pr
 		../../depositcalc.h \
 		../../depositformwidget.h \
 		../../depositwidget.h \
+		../../linechartwidget.h \
 		../../loginwidget.h \
 		../../mainwindow.h \
 		../../successwidget.h \
 		../../userwidget.h \
 		../../piechartwidget.h ../../adminwidget.cpp \
 		../../bankrecord.cpp \
+		../../barchartwidget.cpp \
 		../../creditcalc.cpp \
 		../../creditformwidget.cpp \
 		../../credittablewidget.cpp \
@@ -376,6 +387,7 @@ DIST          = /Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/features/spec_pre.pr
 		../../depositcalc.cpp \
 		../../depositformwidget.cpp \
 		../../depositwidget.cpp \
+		../../linechartwidget.cpp \
 		../../loginwidget.cpp \
 		../../main.cpp \
 		../../mainwindow.cpp \
@@ -943,8 +955,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents ../../adminwidget.h ../../bankrecord.h ../../basewidget.h ../../constants.h ../../creditcalc.h ../../creditformwidget.h ../../credittablewidget.h ../../datahandler.h ../../depositcalc.h ../../depositformwidget.h ../../depositwidget.h ../../loginwidget.h ../../mainwindow.h ../../successwidget.h ../../userwidget.h ../../piechartwidget.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../../adminwidget.cpp ../../bankrecord.cpp ../../creditcalc.cpp ../../creditformwidget.cpp ../../credittablewidget.cpp ../../datahandler.cpp ../../depositcalc.cpp ../../depositformwidget.cpp ../../depositwidget.cpp ../../loginwidget.cpp ../../main.cpp ../../mainwindow.cpp ../../successwidget.cpp ../../userwidget.cpp ../../piechartwidget.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../../adminwidget.h ../../bankrecord.h ../../barchartwidget.h ../../basewidget.h ../../constants.h ../../creditcalc.h ../../creditformwidget.h ../../credittablewidget.h ../../datahandler.h ../../depositcalc.h ../../depositformwidget.h ../../depositwidget.h ../../linechartwidget.h ../../loginwidget.h ../../mainwindow.h ../../successwidget.h ../../userwidget.h ../../piechartwidget.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../../adminwidget.cpp ../../bankrecord.cpp ../../barchartwidget.cpp ../../creditcalc.cpp ../../creditformwidget.cpp ../../credittablewidget.cpp ../../datahandler.cpp ../../depositcalc.cpp ../../depositformwidget.cpp ../../depositwidget.cpp ../../linechartwidget.cpp ../../loginwidget.cpp ../../main.cpp ../../mainwindow.cpp ../../successwidget.cpp ../../userwidget.cpp ../../piechartwidget.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../../UserForm.ui ../../mainwindow.ui $(DISTDIR)/
 
 
@@ -974,14 +986,21 @@ benchmark: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_adminwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp moc_piechartwidget.cpp
+compiler_moc_header_make_all: moc_adminwidget.cpp moc_barchartwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_linechartwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp moc_piechartwidget.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_adminwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp moc_piechartwidget.cpp
+	-$(DEL_FILE) moc_adminwidget.cpp moc_barchartwidget.cpp moc_basewidget.cpp moc_creditformwidget.cpp moc_credittablewidget.cpp moc_depositformwidget.cpp moc_depositwidget.cpp moc_linechartwidget.cpp moc_loginwidget.cpp moc_mainwindow.cpp moc_successwidget.cpp moc_userwidget.cpp moc_piechartwidget.cpp
 moc_adminwidget.cpp: ../../adminwidget.h \
 		../../basewidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc
 	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/las/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../adminwidget.h -o moc_adminwidget.cpp
+
+moc_barchartwidget.cpp: ../../barchartwidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QVector \
+		/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/las/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../barchartwidget.h -o moc_barchartwidget.cpp
 
 moc_basewidget.cpp: ../../basewidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -1004,6 +1023,7 @@ moc_credittablewidget.cpp: ../../credittablewidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QList \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
 		/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc
 	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/las/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../credittablewidget.h -o moc_credittablewidget.cpp
 
@@ -1025,6 +1045,14 @@ moc_depositwidget.cpp: ../../depositwidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc
 	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/las/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../depositwidget.h -o moc_depositwidget.cpp
 
+moc_linechartwidget.cpp: ../../linechartwidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QVector \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate \
+		/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc
+	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/las/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../linechartwidget.h -o moc_linechartwidget.cpp
+
 moc_loginwidget.cpp: ../../loginwidget.h \
 		../../basewidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
@@ -1043,7 +1071,11 @@ moc_mainwindow.cpp: ../../mainwindow.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QString \
 		../../credittablewidget.h \
 		../../basewidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../depositwidget.h \
+		../../barchartwidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QVector \
+		../../linechartwidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc
 	/Users/nikolasgurov/Qt/6.11.0/macos/libexec/moc $(DEFINES) -D__APPLE__ -D__GNUC__=4 -D__APPLE_CC__ -D__cplusplus=201402L -D__APPLE_CC__=6000 -D__clang__ -D__clang_major__=17 -D__clang_minor__=0 -D__clang_patchlevel__=0 -D__GNUC__=4 -D__GNUC_MINOR__=2 -D__GNUC_PATCHLEVEL__=1 -I/Users/nikolasgurov/Qt/6.11.0/macos/mkspecs/macx-clang -I/Users/nikolasgurov/claude_test/las/qmake_b -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCharts.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGLWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtOpenGL.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers -I/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers -I. -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include/c++/v1 -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/clang/17/include -I/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX15.5.sdk/usr/include -I/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include -F/Users/nikolasgurov/Qt/6.11.0/macos/lib ../../mainwindow.h -o moc_mainwindow.cpp
 
@@ -1104,6 +1136,15 @@ bankrecord.o: ../../bankrecord.cpp ../../bankrecord.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o bankrecord.o ../../bankrecord.cpp
 
+barchartwidget.o: ../../barchartwidget.cpp ../../barchartwidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QVector \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers/QPainter \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers/QMouseEvent \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QtMath
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o barchartwidget.o ../../barchartwidget.cpp
+
 creditcalc.o: ../../creditcalc.cpp ../../creditcalc.h \
 		../../bankrecord.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QString \
@@ -1118,10 +1159,13 @@ creditformwidget.o: ../../creditformwidget.cpp ../../creditformwidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QDateEdit \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../creditcalc.h \
+		../../bankrecord.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QString \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QScrollArea \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QMessageBox
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o creditformwidget.o ../../creditformwidget.cpp
 
 credittablewidget.o: ../../credittablewidget.cpp ../../credittablewidget.h \
@@ -1129,17 +1173,13 @@ credittablewidget.o: ../../credittablewidget.cpp ../../credittablewidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QList \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QHBoxLayout \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QVBoxLayout \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QTableWidget \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QLineEdit \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QSpinBox \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QDateEdit \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QLabel \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QHeaderView \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
+		../../creditcalc.h \
+		../../bankrecord.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QString \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QtWidgets \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QFileDialog \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDir
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o credittablewidget.o ../../credittablewidget.cpp
 
 datahandler.o: ../../datahandler.cpp ../../datahandler.h \
@@ -1185,8 +1225,20 @@ depositwidget.o: ../../depositwidget.cpp ../../depositwidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QLabel \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QHeaderView \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QMessageBox \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QInputDialog \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QTableWidgetItem \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QFileDialog \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDir
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o depositwidget.o ../../depositwidget.cpp
+
+linechartwidget.o: ../../linechartwidget.cpp ../../linechartwidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QWidget \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QPropertyAnimation \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QVector \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDate \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers/QPainter \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QtMath
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o linechartwidget.o ../../linechartwidget.cpp
 
 loginwidget.o: ../../loginwidget.cpp ../../loginwidget.h \
 		../../basewidget.h \
@@ -1209,7 +1261,11 @@ main.o: ../../main.cpp ../../mainwindow.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QString \
 		../../credittablewidget.h \
 		../../basewidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../depositwidget.h \
+		../../barchartwidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QVector \
+		../../linechartwidget.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QApplication
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../main.cpp
 
@@ -1225,7 +1281,11 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QString \
 		../../credittablewidget.h \
 		../../basewidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../depositwidget.h \
+		../../barchartwidget.h \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QVector \
+		../../linechartwidget.h \
 		ui_mainwindow.h \
 		../../loginwidget.h \
 		../../adminwidget.h \
@@ -1236,7 +1296,6 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QLabel \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QPushButton \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QDateEdit \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QCheckBox \
 		../../depositformwidget.h \
 		../../successwidget.h \
 		../../datahandler.h \
@@ -1245,7 +1304,8 @@ mainwindow.o: ../../mainwindow.cpp ../../mainwindow.h \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QDir \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtCore.framework/Headers/QFileInfo \
 		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QLayout \
-		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtGui.framework/Headers/QPen
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QFrame \
+		/Users/nikolasgurov/Qt/6.11.0/macos/lib/QtWidgets.framework/Headers/QVBoxLayout
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o ../../mainwindow.cpp
 
 successwidget.o: ../../successwidget.cpp ../../successwidget.h \
@@ -1276,6 +1336,9 @@ piechartwidget.o: ../../piechartwidget.cpp ../../piechartwidget.h \
 moc_adminwidget.o: moc_adminwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_adminwidget.o moc_adminwidget.cpp
 
+moc_barchartwidget.o: moc_barchartwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_barchartwidget.o moc_barchartwidget.cpp
+
 moc_basewidget.o: moc_basewidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_basewidget.o moc_basewidget.cpp
 
@@ -1290,6 +1353,9 @@ moc_depositformwidget.o: moc_depositformwidget.cpp
 
 moc_depositwidget.o: moc_depositwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_depositwidget.o moc_depositwidget.cpp
+
+moc_linechartwidget.o: moc_linechartwidget.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_linechartwidget.o moc_linechartwidget.cpp
 
 moc_loginwidget.o: moc_loginwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_loginwidget.o moc_loginwidget.cpp

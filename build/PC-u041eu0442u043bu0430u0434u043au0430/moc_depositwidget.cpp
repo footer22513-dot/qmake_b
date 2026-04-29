@@ -50,7 +50,10 @@ template <> constexpr inline auto DepositTableWidget::qt_create_metaobjectdata<q
         "onDeleteClicked",
         "onItemChanged",
         "QTableWidgetItem*",
-        "item"
+        "item",
+        "onTopUpClicked",
+        "onWithdrawClicked",
+        "onExportReport"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -72,6 +75,12 @@ template <> constexpr inline auto DepositTableWidget::qt_create_metaobjectdata<q
         QtMocHelpers::SlotData<void(QTableWidgetItem *)>(10, 2, QMC::AccessPrivate, QMetaType::Void, {{
             { 0x80000000 | 11, 12 },
         }}),
+        // Slot 'onTopUpClicked'
+        QtMocHelpers::SlotData<void()>(13, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onWithdrawClicked'
+        QtMocHelpers::SlotData<void()>(14, 2, QMC::AccessPrivate, QMetaType::Void),
+        // Slot 'onExportReport'
+        QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -101,6 +110,9 @@ void DepositTableWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, i
         case 3: _t->onResetClicked(); break;
         case 4: _t->onDeleteClicked(); break;
         case 5: _t->onItemChanged((*reinterpret_cast<std::add_pointer_t<QTableWidgetItem*>>(_a[1]))); break;
+        case 6: _t->onTopUpClicked(); break;
+        case 7: _t->onWithdrawClicked(); break;
+        case 8: _t->onExportReport(); break;
         default: ;
         }
     }
@@ -131,14 +143,14 @@ int DepositTableWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 6)
+        if (_id < 9)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 6;
+        _id -= 9;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 6)
+        if (_id < 9)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 6;
+        _id -= 9;
     }
     return _id;
 }

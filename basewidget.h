@@ -20,6 +20,7 @@ signals:
     void navigateToDepositForm();
     void navigateToSuccess();
     void navigateToAnalytics();
+    void navigateToMovementCharts();
 };
 
 #endif // BASEWIDGET_H

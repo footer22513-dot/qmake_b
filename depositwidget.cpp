@@ -9,7 +9,12 @@
 #include <QLabel>
 #include <QHeaderView>
 #include <QMessageBox>
+#include <QInputDialog>
+#include <QtCore/QFile>
+#include <QtCore/QTextStream>
 #include <QTableWidgetItem>
+#include <QFileDialog>
+#include <QDir>
 
 DepositTableWidget::DepositTableWidget(QWidget *parent) : BaseWidget(parent) {
     auto* main = new QHBoxLayout(this);
@@ -71,11 +76,27 @@ DepositTableWidget::DepositTableWidget(QWidget *parent) : BaseWidget(parent) {
     delBtn->setStyleSheet("font-size:14px;padding:8px;background:#f44336;color:white;border-radius:5px;");
     connect(delBtn, &QPushButton::clicked, this, &DepositTableWidget::onDeleteClicked);
     ctrl->addWidget(delBtn);
+    // Кнопка "Пополнить" рядом с "Удалить"
+    topUpBtn = new QPushButton("💰 Пополнить");
+    topUpBtn->setStyleSheet("font-size:14px;padding:8px;background:#388E3C;color:white;border-radius:5px;");
+    connect(topUpBtn, &QPushButton::clicked, this, &DepositTableWidget::onTopUpClicked);
+    ctrl->addWidget(topUpBtn);
+
+    // Withdraw button for partial withdrawal
+    withdrawBtn = new QPushButton("💸 Снять");
+    withdrawBtn->setStyleSheet("font-size:14px;padding:8px;background:#D32F2F;color:white;border-radius:5px;");
+    connect(withdrawBtn, &QPushButton::clicked, this, &DepositTableWidget::onWithdrawClicked);
+    ctrl->addWidget(withdrawBtn);
 
     backBtn = new QPushButton("← НАЗАД");
     backBtn->setStyleSheet("font-size:14px;padding:8px;background:#555;color:white;border-radius:5px;");
     connect(backBtn, &QPushButton::clicked, this, &DepositTableWidget::navigateToAdmin);
     ctrl->addWidget(backBtn);
+    // Export report button
+    exportBtn = new QPushButton("📄 Экспорт отчёта");
+    exportBtn->setStyleSheet("font-size:14px;padding:8px;background:#1976D2;color:white;border-radius:5px;");
+    connect(exportBtn, &QPushButton::clicked, this, &DepositTableWidget::onExportReport);
+    ctrl->addWidget(exportBtn);
 
     // Подключаем сигнал изменения ячейки
     connect(table, &QTableWidget::itemChanged, this, &DepositTableWidget::onItemChanged);
@@ -206,4 +227,104 @@ QString DepositTableWidget::rateTypeName(int t) {
 
 QString DepositTableWidget::periodName(int p) {
     switch(p){ case 1: return "Ежеквартально"; case 2: return "Ежегодно"; default: return "Ежемесячно"; }
+}
+void DepositTableWidget::onTopUpClicked() {
+    // existing top‑up logic (unchanged)
+    int row = table->currentRow();
+    if (row < 0) { QMessageBox::warning(this, tr("\u0412\u043d\u0438\u043c\u0430\u043d\u0438\u0435"), tr("\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0437\u0430\u043f\u0438\u0441\u044c.")); return; }
+    int id = table->item(row, 0)->text().toInt();
+    bool ok = false;
+    double amount = QInputDialog::getDouble(this, tr("\u041f\u043e\u043f\u043e\u043b\u043d\u0435\u043d\u0438\u0435 \u0432\u043a\u043b\u0430\u0434\u0430"), tr("\u0421\u0443\u043c\u043c\u0430:"), 0.0, 0.0, 1e9, 2, &ok);
+    if (!ok) return;
+    auto it = std::find_if(records.begin(), records.end(), [id](const DepositRecord& r){ return r.id == id; });
+    if (it == records.end()) return;
+    // Добавляем сумму к начальной и пересчитываем конечную
+    it->startSum = qMax(0.0, it->startSum + amount);
+    double rate = it->ratePercent;
+    int days = it->termDays;
+    it->endSum = qMax(0.0, it->startSum * (1.0 + rate * days / 36500.0));
+    refreshTable(records);
+    emit recordUpdated(*it);
+}
+
+// Partial withdrawal handling
+void DepositTableWidget::onWithdrawClicked() {
+    int row = table->currentRow();
+    if (row < 0) {
+        QMessageBox::warning(this, tr("Внимание"), tr("Выберите запись."));
+        return;
+    }
+    int id = table->item(row, 0)->text().toInt();
+    auto it = std::find_if(records.begin(), records.end(), [id](const DepositRecord& r){ return r.id == id; });
+    if (it == records.end()) return;
+    bool ok = false;
+    double amount = QInputDialog::getDouble(this, tr("Снятие части вклада"), tr("Сумма:"), 0.0, 0.0, it->startSum, 2, &ok);
+    if (!ok) return;
+    // Ensure withdrawal does not exceed current balance
+    if (amount > it->startSum) {
+        QMessageBox::warning(this, tr("Ошибка"), tr("Сумма снятия превышает текущую сумму вклада."));
+        return;
+    }
+    it->startSum = qMax(0.0, it->startSum - amount);
+    double rate = it->ratePercent;
+    int days = it->termDays;
+    it->endSum = qMax(0.0, it->startSum * (1.0 + rate * days / 36500.0));
+    refreshTable(records);
+    emit recordUpdated(*it);
+}
+
+void DepositTableWidget::onExportReport() {
+    int row = table->currentRow();
+    QString clientName = (row >= 0) ? table->item(row, 1)->text() : "все_клиенты";
+    clientName.replace(" ", "_");
+
+    QString defaultName = QDir::homePath() + QString("/отчёт_вклады_%1_%2.txt")
+                                                 .arg(clientName)
+                                                 .arg(QDate::currentDate().toString("dd-MM-yyyy"));
+
+    QString path = QFileDialog::getSaveFileName(
+        this, "Сохранить отчёт", defaultName, "Текстовые файлы (*.txt)");
+    if (path.isEmpty()) return;
+
+    QFile file(path);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Ошибка", "Не удалось открыть файл для записи.");
+        return;
+    }
+
+    QTextStream out(&file);
+    out.setEncoding(QStringConverter::Utf8);
+
+    out << "=== ОТЧЁТ ПО ВКЛАДАМ ===\n";
+    out << QString("Дата формирования: %1\n").arg(QDate::currentDate().toString("dd.MM.yyyy"));
+    out << QString("Всего записей: %1\n\n").arg(records.size());
+
+    QDate today = QDate::currentDate();
+    int overdue = 0;
+
+    for (const auto& r : records) {
+        QDate d = QDate::fromString(r.issueDate, "dd.MM.yyyy");
+        QDate due = d.isValid() ? d.addDays(r.termDays) : QDate();
+        bool isOverdue = d.isValid() && (due < today) && (r.endSum > 0);
+        if (isOverdue) ++overdue;
+
+        out << QString("ID: %1\n").arg(r.id);
+        out << QString("  ФИО:        %1\n").arg(r.fullName);
+        out << QString("  Телефон:    %1\n").arg(r.phone);
+        out << QString("  Открыт:     %1\n").arg(r.issueDate);
+        out << QString("  Срок:       %1 дн.\n").arg(r.termDays);
+        out << QString("  Дата конца: %1\n").arg(due.isValid() ? due.toString("dd.MM.yyyy") : "—");
+        out << QString("  Ставка:     %1%\n").arg(r.ratePercent, 0, 'f', 2);
+        out << QString("  Нач. сумма: %1 руб.\n").arg(r.startSum, 0, 'f', 2);
+        out << QString("  Кон. сумма: %1 руб.\n").arg(r.endSum, 0, 'f', 2);
+        out << QString("  Статус:     %1\n").arg(isOverdue ? "ПРОСРОЧЕН" : "активен");
+        out << "\n";
+    }
+
+    out << "========================\n";
+    out << QString("Просроченных: %1 из %2\n").arg(overdue).arg(records.size());
+
+    file.close();
+    QMessageBox::information(this, "Готово",
+                             QString("Отчёт сохранён:\n%1").arg(path));
 }

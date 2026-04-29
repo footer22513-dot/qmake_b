@@ -44,6 +44,9 @@ private slots:
     void onResetClicked();
     void onDeleteClicked();
     void onItemChanged(QTableWidgetItem* item);       // Обработчик редактирования
+    void onTopUpClicked();
+    void onWithdrawClicked();
+    void onExportReport(); // export overdue deposits report    // Пополнение вклада
 
 private:
     QTableWidget* table;
@@ -55,7 +58,10 @@ private:
     QPushButton*  searchBtn;
     QPushButton*  resetBtn;
     QPushButton*  delBtn;
+    QPushButton*  topUpBtn; // Кнопка "Пополнить"
+    QPushButton*  withdrawBtn; // Кнопка "Снять"
     QPushButton*  backBtn;
+    QPushButton*  exportBtn; // button to export TXT report
 
     QList<DepositRecord> records;
     bool m_isRefreshing = false;                       // Флаг блокировки сигналов

@@ -54,6 +54,9 @@ template <> constexpr inline auto CreditFormWidget::qt_create_metaobjectdata<qt_
         "startSum",
         "endSum",
         "earlyRepay",
+        "penaltyAmount",
+        "penaltyPercent",
+        "creditType",
         "calculateEndSum",
         "onCreateCreditClicked"
     };
@@ -64,15 +67,16 @@ template <> constexpr inline auto CreditFormWidget::qt_create_metaobjectdata<qt_
         // Signal 'navigateToSuccess'
         QtMocHelpers::SignalData<void()>(3, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'creditDataReady'
-        QtMocHelpers::SignalData<void(const QString &, const QString &, QDate, int, int, double, int, double, double, bool)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
+        QtMocHelpers::SignalData<void(const QString &, const QString &, QDate, int, int, double, int, double, double, bool, double, double, int)>(4, 2, QMC::AccessPublic, QMetaType::Void, {{
             { QMetaType::QString, 5 }, { QMetaType::QString, 6 }, { QMetaType::QDate, 7 }, { QMetaType::Int, 8 },
             { QMetaType::Int, 9 }, { QMetaType::Double, 10 }, { QMetaType::Int, 11 }, { QMetaType::Double, 12 },
-            { QMetaType::Double, 13 }, { QMetaType::Bool, 14 },
+            { QMetaType::Double, 13 }, { QMetaType::Bool, 14 }, { QMetaType::Double, 15 }, { QMetaType::Double, 16 },
+            { QMetaType::Int, 17 },
         }}),
         // Slot 'calculateEndSum'
-        QtMocHelpers::SlotData<void()>(15, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(18, 2, QMC::AccessPrivate, QMetaType::Void),
         // Slot 'onCreateCreditClicked'
-        QtMocHelpers::SlotData<void()>(16, 2, QMC::AccessPrivate, QMetaType::Void),
+        QtMocHelpers::SlotData<void()>(19, 2, QMC::AccessPrivate, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -98,7 +102,7 @@ void CreditFormWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
         switch (_id) {
         case 0: _t->navigateToUser(); break;
         case 1: _t->navigateToSuccess(); break;
-        case 2: _t->creditDataReady((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QDate>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[7])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[8])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[9])),(*reinterpret_cast<std::add_pointer_t<bool>>(_a[10]))); break;
+        case 2: _t->creditDataReady((*reinterpret_cast<std::add_pointer_t<QString>>(_a[1])),(*reinterpret_cast<std::add_pointer_t<QString>>(_a[2])),(*reinterpret_cast<std::add_pointer_t<QDate>>(_a[3])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[4])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[5])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[6])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[7])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[8])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[9])),(*reinterpret_cast<std::add_pointer_t<bool>>(_a[10])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[11])),(*reinterpret_cast<std::add_pointer_t<double>>(_a[12])),(*reinterpret_cast<std::add_pointer_t<int>>(_a[13]))); break;
         case 3: _t->calculateEndSum(); break;
         case 4: _t->onCreateCreditClicked(); break;
         default: ;
@@ -109,7 +113,7 @@ void CreditFormWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int
             return;
         if (QtMocHelpers::indexOfMethod<void (CreditFormWidget::*)()>(_a, &CreditFormWidget::navigateToSuccess, 1))
             return;
-        if (QtMocHelpers::indexOfMethod<void (CreditFormWidget::*)(const QString & , const QString & , QDate , int , int , double , int , double , double , bool )>(_a, &CreditFormWidget::creditDataReady, 2))
+        if (QtMocHelpers::indexOfMethod<void (CreditFormWidget::*)(const QString & , const QString & , QDate , int , int , double , int , double , double , bool , double , double , int )>(_a, &CreditFormWidget::creditDataReady, 2))
             return;
     }
 }
@@ -158,8 +162,8 @@ void CreditFormWidget::navigateToSuccess()
 }
 
 // SIGNAL 2
-void CreditFormWidget::creditDataReady(const QString & _t1, const QString & _t2, QDate _t3, int _t4, int _t5, double _t6, int _t7, double _t8, double _t9, bool _t10)
+void CreditFormWidget::creditDataReady(const QString & _t1, const QString & _t2, QDate _t3, int _t4, int _t5, double _t6, int _t7, double _t8, double _t9, bool _t10, double _t11, double _t12, int _t13)
 {
-    QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1, _t2, _t3, _t4, _t5, _t6, _t7, _t8, _t9, _t10);
+    QMetaObject::activate<void>(this, &staticMetaObject, 2, nullptr, _t1, _t2, _t3, _t4, _t5, _t6, _t7, _t8, _t9, _t10, _t11, _t12, _t13);
 }
 QT_WARNING_POP

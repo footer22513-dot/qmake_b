@@ -48,7 +48,8 @@ template <> constexpr inline auto BaseWidget::qt_create_metaobjectdata<qt_meta_t
         "navigateToCreditForm",
         "navigateToDepositForm",
         "navigateToSuccess",
-        "navigateToAnalytics"
+        "navigateToAnalytics",
+        "navigateToMovementCharts"
     };
 
     QtMocHelpers::UintData qt_methods {
@@ -70,6 +71,8 @@ template <> constexpr inline auto BaseWidget::qt_create_metaobjectdata<qt_meta_t
         QtMocHelpers::SignalData<void()>(9, 2, QMC::AccessPublic, QMetaType::Void),
         // Signal 'navigateToAnalytics'
         QtMocHelpers::SignalData<void()>(10, 2, QMC::AccessPublic, QMetaType::Void),
+        // Signal 'navigateToMovementCharts'
+        QtMocHelpers::SignalData<void()>(11, 2, QMC::AccessPublic, QMetaType::Void),
     };
     QtMocHelpers::UintData qt_properties {
     };
@@ -102,6 +105,7 @@ void BaseWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         case 6: _t->navigateToDepositForm(); break;
         case 7: _t->navigateToSuccess(); break;
         case 8: _t->navigateToAnalytics(); break;
+        case 9: _t->navigateToMovementCharts(); break;
         default: ;
         }
     }
@@ -123,6 +127,8 @@ void BaseWidget::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         if (QtMocHelpers::indexOfMethod<void (BaseWidget::*)()>(_a, &BaseWidget::navigateToSuccess, 7))
             return;
         if (QtMocHelpers::indexOfMethod<void (BaseWidget::*)()>(_a, &BaseWidget::navigateToAnalytics, 8))
+            return;
+        if (QtMocHelpers::indexOfMethod<void (BaseWidget::*)()>(_a, &BaseWidget::navigateToMovementCharts, 9))
             return;
     }
 }
@@ -146,14 +152,14 @@ int BaseWidget::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 9)
+        if (_id < 10)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 9;
+        _id -= 10;
     }
     if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 9)
+        if (_id < 10)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 9;
+        _id -= 10;
     }
     return _id;
 }
@@ -210,5 +216,11 @@ void BaseWidget::navigateToSuccess()
 void BaseWidget::navigateToAnalytics()
 {
     QMetaObject::activate(this, &staticMetaObject, 8, nullptr);
+}
+
+// SIGNAL 9
+void BaseWidget::navigateToMovementCharts()
+{
+    QMetaObject::activate(this, &staticMetaObject, 9, nullptr);
 }
 QT_WARNING_POP

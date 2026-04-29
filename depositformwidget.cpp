@@ -3,6 +3,9 @@
 #include <QScrollArea>
 #include <QLabel>
 #include <QMessageBox>
+#include <QFile>
+#include <QTextStream>
+#include <QDir>
 
 // Предустановленные ставки для вкладов
 static const QStringList DEPOSIT_RATES = {"5.00%", "7.50%", "10.00%"};
@@ -83,6 +86,11 @@ void DepositFormWidget::setupUI() {
     createBtn->setMinimumHeight(52);
     createBtn->setStyleSheet("background:#2196F3; color:white; border-radius:6px;");
     layout->addWidget(createBtn);
+    // Export analytics button
+    exportAnalyticsBtn = new QPushButton("Экспорт аналитики");
+    exportAnalyticsBtn->setFont(QFont("Segoe UI", 14));
+    exportAnalyticsBtn->setStyleSheet("background:#4CAF50; color:white; border-radius:5px; margin-top:8px;");
+    layout->addWidget(exportAnalyticsBtn);
 
     backBtn = new QPushButton("НАЗАД");
     backBtn->setFont(QFont("Segoe UI", 16));
@@ -113,6 +121,7 @@ void DepositFormWidget::setupConnections() {
     connect(startSumInput, &QLineEdit::textChanged, this, &DepositFormWidget::calculateEndSum);
     connect(createBtn, &QPushButton::clicked, this, &DepositFormWidget::onCreateDepositClicked);
     connect(backBtn,   &QPushButton::clicked, this, &DepositFormWidget::navigateToUser);
+    connect(exportAnalyticsBtn, &QPushButton::clicked, this, &DepositFormWidget::onExportAnalyticsClicked);
 }
 
 int DepositFormWidget::selectedDays() const {
@@ -129,14 +138,32 @@ double DepositFormWidget::selectedRate() const {
 void DepositFormWidget::calculateEndSum() {
     bool ok;
     double start = startSumInput->text().toDouble(&ok);
-    double rate  = selectedRate();
     int    days  = selectedDays();
-    if (ok && start > 0 && days > 0) {
-        double end = start * (1.0 + rate * days / 36500.0);
-        endSumLabel->setText(QString::number(end, 'f', 2) + " руб.");
-    } else {
+    if (!(ok && start > 0 && days > 0)) {
         endSumLabel->setText("0.00 руб.");
+        return;
     }
+    // Determine base rate (annual percent) based on selected rate
+    double baseRate = selectedRate();
+    // Adjust rate based on rate type selection
+    int rateType = rateTypeCombo->currentIndex(); // 0: fixed, 1: depends on sum, 2: depends on term
+    if (rateType == 1) { // depends on sum
+        if (start > 50000) {
+            baseRate += 0.5; // modest increase for large deposits
+        }
+    } else if (rateType == 2) { // depends on term
+        if (days > 180) {
+            baseRate += 0.3; // increase for long terms
+        }
+    }
+    // Apply payment frequency factor
+    int periodIdx = periodCombo->currentIndex(); // 0 monthly, 1 quarterly, 2 yearly
+    int periodsPerYear = (periodIdx == 0) ? 12 : (periodIdx == 1) ? 4 : 1;
+    double frequencyFactor = 12.0 / periodsPerYear; // e.g., monthly=1, quarterly=3, yearly=12
+    double effectiveRate = baseRate * frequencyFactor;
+    // Simple interest calculation using effective annual rate
+    double end = start * (1.0 + effectiveRate * days / 36500.0);
+    endSumLabel->setText(QString::number(end, 'f', 2) + " руб.");
 }
 
 void DepositFormWidget::onCreateDepositClicked() {
@@ -166,4 +193,39 @@ void DepositFormWidget::onCreateDepositClicked() {
         start, endSum
         );
     emit navigateToSuccess();
+    // Reset form fields after successful submission
+    fioInput->clear();
+    phoneInput->clear();
+    issueDateEdit->setDate(QDate::currentDate());
+    termCombo->setCurrentIndex(0);
+    daysInput->clear();
+    daysInput->setVisible(false);
+    rateTypeCombo->setCurrentIndex(0);
+    rateCombo->setCurrentIndex(0);
+    periodCombo->setCurrentIndex(0);
+    startSumInput->clear();
+    endSumLabel->setText("0.00 руб.");
+}
+
+void DepositFormWidget::onExportAnalyticsClicked() {
+    // Simple text report of current form values
+    QString filename = QDir::homePath() + "/deposit_report.txt";
+    QFile file(filename);
+    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+        QMessageBox::warning(this, "Ошибка", "Не удалось создать файл отчёта.");
+        return;
+    }
+    QTextStream out(&file);
+    out << "Отчёт по вкладу\n";
+    out << "ФИО: " << fioInput->text() << "\n";
+    out << "Телефон: " << phoneInput->text() << "\n";
+    out << "Дата начала: " << issueDateEdit->date().toString("dd.MM.yyyy") << "\n";
+    out << "Срок (дней): " << selectedDays() << "\n";
+    out << "Тип ставки: " << rateTypeCombo->currentText() << "\n";
+    out << "Ставка: " << rateCombo->currentText() << "\n";
+    out << "Периодичность: " << periodCombo->currentText() << "\n";
+    out << "Сумма вклада: " << startSumInput->text() << "\n";
+    out << "Сумма к получению: " << endSumLabel->text() << "\n";
+    file.close();
+    QMessageBox::information(this, "Экспорт", "Отчёт сохранён в " + filename);
 }

@@ -21,7 +21,9 @@ signals:
                          QDate issueDate, int days,
                          int rateType, double rate, int period,
                          double startSum, double endSum,
-                         bool earlyRepay);
+                         bool earlyRepay,
+                         double penaltyAmount, double penaltyPercent,
+                         int creditType);
 
 private slots:
     void calculateEndSum();
@@ -39,6 +41,9 @@ private:
     QLineEdit*  startSumInput;
     QCheckBox*  earlyRepayCheck; // ТЗ п.3.2.1: досрочная выплата
     QLabel*     endSumLabel;
+    QLineEdit*   penaltyAmountInput;
+    QLineEdit*   penaltyPercentInput;
+    QComboBox*   creditTypeCombo;
     QPushButton* createBtn;
     QPushButton* backBtn;
 

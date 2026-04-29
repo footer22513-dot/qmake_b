@@ -1,4 +1,5 @@
 #include "creditformwidget.h"
+#include "creditcalc.h"
 #include <QVBoxLayout>
 #include <QScrollArea>
 #include <QLabel>
@@ -76,6 +77,20 @@ void CreditFormWidget::setupUI() {
     addRow("СУММА ЗАЙМА (руб.):", startSumInput);
     layout->addWidget(earlyRepayCheck);
 
+    // Штрафы
+    penaltyAmountInput = new QLineEdit;
+    penaltyAmountInput->setPlaceholderText("Сумма штрафа (руб.)");
+    addRow("ШТРАФ (руб.)", penaltyAmountInput);
+
+    penaltyPercentInput = new QLineEdit;
+    penaltyPercentInput->setPlaceholderText("Штраф в % от остатка");
+    addRow("ШТРАФ (% )", penaltyPercentInput);
+
+    // Тип кредита
+    creditTypeCombo = new QComboBox;
+    creditTypeCombo->addItems({"Простой", "Аннуитет", "Дифференцированный"});
+    addRow("Тип кредита:", creditTypeCombo);
+
     auto* endTitle = new QLabel("СУММА К ВОЗВРАТУ:");
     endTitle->setFont(QFont("Segoe UI", 15, QFont::Bold));
     layout->addWidget(endTitle);
@@ -121,6 +136,8 @@ void CreditFormWidget::setupConnections() {
     connect(startSumInput,&QLineEdit::textChanged, this, &CreditFormWidget::calculateEndSum);
     connect(createBtn, &QPushButton::clicked, this, &CreditFormWidget::onCreateCreditClicked);
     connect(backBtn,   &QPushButton::clicked, this, &CreditFormWidget::navigateToUser);
+    // Recalculate when credit type changes
+    connect(creditTypeCombo, static_cast<void(QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, &CreditFormWidget::calculateEndSum);
 }
 
 int CreditFormWidget::selectedDays() const {
@@ -137,14 +154,51 @@ double CreditFormWidget::selectedRate() const {
 void CreditFormWidget::calculateEndSum() {
     bool ok;
     double start = startSumInput->text().toDouble(&ok);
-    double rate  = selectedRate();
     int    days  = selectedDays();
-    if (ok && start > 0 && days > 0) {
-        double end = start * (1.0 + rate * days / 36500.0);
-        endSumLabel->setText(QString::number(end, 'f', 2) + " руб.");
-    } else {
+    if (!(ok && start > 0 && days > 0)) {
         endSumLabel->setText("0.00 руб.");
+        return;
     }
+    // Base annual rate
+    double baseRate = selectedRate();
+    // Adjust based on rate type
+    int rateType = rateTypeCombo->currentIndex(); // 0: fixed, 1: depends on sum, 2: depends on term
+    if (rateType == 1) { // depends on sum
+        if (start > 50000) {
+            baseRate += 0.5;
+        }
+    } else if (rateType == 2) { // depends on term
+        if (days > 180) {
+            baseRate += 0.3;
+        }
+    }
+    // Apply payment frequency factor
+    int periodIdx = periodCombo->currentIndex(); // 0 monthly, 1 quarterly, 2 yearly
+    int periodsPerYear = (periodIdx == 0) ? 12 : (periodIdx == 1) ? 4 : 1;
+    double frequencyFactor = 12.0 / periodsPerYear; // monthly=1, quarterly=3, yearly=12
+    double effectiveRate = baseRate * frequencyFactor;
+    double end = 0.0;
+    int type = creditTypeCombo->currentIndex(); // 0‑Simple, 1‑Annuity, 2‑Diff
+    if (type == 0) {
+        // Simple interest using effective annual rate
+        end = CreditCalculator::calculateSimple(start, effectiveRate, days);
+    } else if (type == 1) {
+        // Annuity: approximate months = days/30 (rounded up)
+        int months = (days + 29) / 30;
+        double monthlyRate = effectiveRate / 12.0 / 100.0;
+        double payment = CreditCalculator::calculateAnnuityPayment(start, monthlyRate, months);
+        end = payment * months;
+    } else if (type == 2) {
+        // Differentiated payments
+        int months = (days + 29) / 30;
+        double monthlyRate = effectiveRate / 12.0 / 100.0;
+        double total = 0.0;
+        for (int m = 1; m <= months; ++m) {
+            total += CreditCalculator::calculateDiffPayment(start, monthlyRate, m, months);
+        }
+        end = total;
+    }
+    endSumLabel->setText(QString::number(end, 'f', 2) + " руб.");
 }
 
 void CreditFormWidget::onCreateCreditClicked() {
@@ -164,15 +218,34 @@ void CreditFormWidget::onCreateCreditClicked() {
         QMessageBox::warning(this, "Ошибка", "Укажите срок займа."); return;
     }
     double rate   = selectedRate();
-    double endSum = start * (1.0 + rate * days / 36500.0);
-
+    double endSum = 0.0;
+    int loanType = creditTypeCombo->currentIndex();
+    if (loanType == 0) {
+        endSum = CreditCalculator::calculateSimple(start, rate, days);
+    } else if (loanType == 1) {
+        int months = (days + 29) / 30;
+        double monthlyRate = rate / 12.0 / 100.0;
+        double payment = CreditCalculator::calculateAnnuityPayment(start, monthlyRate, months);
+        endSum = payment * months;
+    } else if (loanType == 2) {
+        int months = (days + 29) / 30;
+        double monthlyRate = rate / 12.0 / 100.0;
+        double total = 0.0;
+        for (int m = 1; m <= months; ++m) {
+            total += CreditCalculator::calculateDiffPayment(start, monthlyRate, m, months);
+        }
+        endSum = total;
+    }
     emit creditDataReady(
         fioInput->text().trimmed(), phoneInput->text().trimmed(),
         issueDateEdit->date(), days,
         rateTypeCombo->currentIndex(), rate,
         periodCombo->currentIndex(),
         start, endSum,
-        earlyRepayCheck->isChecked()
+        earlyRepayCheck->isChecked(),
+        penaltyAmountInput->text().toDouble(),
+        penaltyPercentInput->text().toDouble(),
+        creditTypeCombo->currentIndex()
         );
     emit navigateToSuccess();
     // Reset form fields
@@ -188,5 +261,7 @@ void CreditFormWidget::onCreateCreditClicked() {
     startSumInput->clear();
     endSumLabel->setText("0.00 руб.");
     earlyRepayCheck->setChecked(true);
+    penaltyAmountInput->clear();
+    penaltyPercentInput->clear();
 }
 

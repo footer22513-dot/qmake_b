@@ -11,6 +11,7 @@ CONFIG += c++17
 SOURCES += \
     adminwidget.cpp \
     bankrecord.cpp \
+    barchartwidget.cpp \
     creditcalc.cpp \
     creditformwidget.cpp \
     credittablewidget.cpp \
@@ -18,6 +19,7 @@ SOURCES += \
     depositcalc.cpp \
     depositformwidget.cpp \
     depositwidget.cpp \
+    linechartwidget.cpp \
     loginwidget.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -28,6 +30,7 @@ SOURCES += \
 HEADERS += \
     adminwidget.h \
     bankrecord.h \
+    barchartwidget.h \
     basewidget.h \
     constants.h \
     creditcalc.h \
@@ -37,6 +40,7 @@ HEADERS += \
     depositcalc.h \
     depositformwidget.h \
     depositwidget.h \
+    linechartwidget.h \
     loginwidget.h \
     mainwindow.h \
     successwidget.h \

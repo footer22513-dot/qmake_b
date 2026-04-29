@@ -1,11 +1,10 @@
 #ifndef CREDITTABLEWIDGET_H
 #define CREDITTABLEWIDGET_H
-
 #include "basewidget.h"
 #include <QList>
 #include <QDate>
+#include <QCheckBox>
 
-// Структура точно по ТЗ п.3.2.1
 struct CreditRecord {
     int     id;
     QString fullName;
@@ -18,6 +17,9 @@ struct CreditRecord {
     double  startSum;
     double  endSum;
     bool    earlyRepay;
+    double  penaltyAmount;
+    double  penaltyPercent;
+    int     creditType = 0;
 };
 
 class QTableWidget;
@@ -32,20 +34,18 @@ class CreditTableWidget : public BaseWidget {
     Q_OBJECT
 public:
     explicit CreditTableWidget(QWidget *parent = nullptr);
-
     void setRecords(const QList<CreditRecord>& records);
     QList<CreditRecord> getRecords() const;
-
 signals:
     void recordDeleted(int id);
-    void recordUpdated(const CreditRecord& record);  // Для сохранения изменений
-
+    void recordUpdated(const CreditRecord& record);
 private slots:
     void onSearchClicked();
     void onResetClicked();
     void onDeleteClicked();
-    void onItemChanged(QTableWidgetItem* item);      // Обработчик редактирования
-
+    void onItemChanged(QTableWidgetItem* item);
+    void onEarlyRepayClicked();
+    void onExportReport();
 private:
     QTableWidget* table;
     QLineEdit*    searchInput;
@@ -56,14 +56,14 @@ private:
     QPushButton*  searchBtn;
     QPushButton*  resetBtn;
     QPushButton*  delBtn;
+    QPushButton*  repayBtn;
     QPushButton*  backBtn;
-
+    QPushButton*  exportBtn; // button to export TXT report
+    QCheckBox*    overdueOnly;
     QList<CreditRecord> records;
-    bool m_isRefreshing = false;                      // Флаг блокировки сигналов
-
+    bool m_isRefreshing = false;
     void refreshTable(const QList<CreditRecord>& data);
     static QString rateTypeName(int t);
     static QString periodName(int p);
 };
-
 #endif // CREDITTABLEWIDGET_H
