@@ -15,7 +15,7 @@
 #include <QTableWidgetItem>
 #include <QFileDialog>
 #include <QDir>
-
+#include <QTextCodec>
 DepositTableWidget::DepositTableWidget(QWidget *parent) : BaseWidget(parent) {
     auto* main = new QHBoxLayout(this);
 
@@ -293,7 +293,8 @@ void DepositTableWidget::onExportReport() {
     }
 
     QTextStream out(&file);
-    out.setEncoding(QStringConverter::Utf8);
+
+    out.setCodec(QTextCodec::codecForName("UTF-8"));
 
     out << "=== ОТЧЁТ ПО ВКЛАДАМ ===\n";
     out << QString("Дата формирования: %1\n").arg(QDate::currentDate().toString("dd.MM.yyyy"));

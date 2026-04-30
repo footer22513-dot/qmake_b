@@ -90,7 +90,7 @@ void DepositFormWidget::setupUI() {
     exportAnalyticsBtn = new QPushButton("Экспорт аналитики");
     exportAnalyticsBtn->setFont(QFont("Segoe UI", 14));
     exportAnalyticsBtn->setStyleSheet("background:#4CAF50; color:white; border-radius:5px; margin-top:8px;");
-    layout->addWidget(exportAnalyticsBtn);
+
 
     backBtn = new QPushButton("НАЗАД");
     backBtn->setFont(QFont("Segoe UI", 16));

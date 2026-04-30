@@ -14,7 +14,7 @@ UserWidget::UserWidget(QWidget *parent)
     layout->setSpacing(15);
 
     // Заголовок
-    titleLabel = new QLabel("ОПЦИИ ПОЛЬЗОВАТЕЛЯ");
+    titleLabel = new QLabel("ПАНЕЛЬ ПОЛЬЗОВАТЕЛЯ");
     titleLabel->setAlignment(Qt::AlignCenter);
     titleLabel->setStyleSheet("font-size: 50px; font-weight: bold;");
     layout->addWidget(titleLabel);

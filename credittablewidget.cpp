@@ -5,7 +5,7 @@
 #include <QtCore/QTextStream>
 #include <QFileDialog>
 #include <QDir>
-
+#include <QTextCodec>
 CreditTableWidget::CreditTableWidget(QWidget *parent) : BaseWidget(parent) {
     auto* main = new QHBoxLayout(this);
 
@@ -298,7 +298,7 @@ void CreditTableWidget::onExportReport() {
     }
 
     QTextStream out(&file);
-    out.setEncoding(QStringConverter::Utf8);
+    out.setCodec(QTextCodec::codecForName("UTF-8"));
 
     out << "=== ОТЧЁТ ПО ЗАЙМАМ ===\n";
     out << QString("Дата формирования: %1\n").arg(QDate::currentDate().toString("dd.MM.yyyy"));

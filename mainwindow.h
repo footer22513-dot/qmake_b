@@ -5,7 +5,7 @@
 #include <QStackedWidget>
 #include <QList>
 #include <QDate>
-#include <QtCharts/QtCharts>
+
 #include "piechartwidget.h"
 #include "bankrecord.h"
 #include "credittablewidget.h"

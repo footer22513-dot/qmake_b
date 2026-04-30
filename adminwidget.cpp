@@ -13,7 +13,8 @@
 #include <QMap>
 #include <QSet>
 #include <algorithm>
-
+#include <QTextCodec>
+#include <fstream>
 AdminWidget::AdminWidget(QWidget *parent) : BaseWidget(parent) {
     auto* layout = new QVBoxLayout(this);
     layout->setContentsMargins(40, 30, 40, 30);
@@ -77,14 +78,14 @@ void AdminWidget::onExportAnalyticsClicked() {
 
     if (path.isEmpty()) return;
 
-    QFile file(path);
-    if (!file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+    // Используем std::ofstream как в примере
+    std::ofstream file(path.toStdString(), std::ios::trunc);
+
+    if (!file.is_open()) {
         QMessageBox::warning(this, "Ошибка", "Не удалось создать файл отчёта.");
         return;
     }
 
-    QTextStream out(&file);
-    out.setEncoding(QStringConverter::Utf8);
     QDate today = QDate::currentDate();
 
     /* ---------- сбор статистики ---------- */
@@ -149,45 +150,54 @@ void AdminWidget::onExportAnalyticsClicked() {
     /* ---------- вывод отчёта ---------- */
     auto f2 = [](double v){ return QString::number(v, 'f', 2); };
 
-    out << "═══════════════════════════════════════════════════════\n";
-    out << "         АНАЛИТИЧЕСКИЙ ОТЧЁТ ПО СИСТЕМЕ\n";
-    out << "═══════════════════════════════════════════════════════\n";
-    out << "Дата формирования: " << today.toString("dd.MM.yyyy") << "\n";
-    out << "Всего операций:    " << totalCount << "\n\n";
+    // Вспомогательная лямбда для вывода (аналог i.toFileString())
+    auto writeLine = [&file](const QString &str) {
+        file << str.toStdString();
+    };
 
-    out << "─── ОБЩАЯ СТАТИСТИКА ─────────────────────────────────\n";
-    out << QString("Кредиты:   %1 шт. на сумму %2 руб.\n")
-               .arg(creditCount).arg(f2(creditSum));
-    out << QString("Вклады:    %1 шт. на сумму %2 руб.\n")
-               .arg(depositCount).arg(f2(depositSum));
-    out << QString("Итого оборот: %1 руб.\n\n")
-               .arg(f2(creditSum + depositSum));
+    // Запись UTF-8 BOM для корректного отображения в Windows
+    const unsigned char bom[] = {0xEF, 0xBB, 0xBF};
+    file.write(reinterpret_cast<const char*>(bom), 3);
 
-    out << "─── СРЕДНИЕ ПОКАЗАТЕЛИ ───────────────────────────────\n";
-    out << QString("Средняя ставка (кредиты): %1%\n")
-               .arg(creditRateCnt ? f2(creditRateSum / creditRateCnt) : "0.00");
-    out << QString("Средняя ставка (вклады):  %1%\n")
-               .arg(depositRateCnt ? f2(depositRateSum / depositRateCnt) : "0.00");
-    out << QString("Средний срок (кредиты):   %1 дн.\n")
-               .arg(creditCount ? QString::number(creditTermSum / creditCount) : "0");
-    out << QString("Средний срок (вклады):    %1 дн.\n\n")
-               .arg(depositCount ? QString::number(depositTermSum / depositCount) : "0");
+    writeLine("=======================================================\n");
+    writeLine("         АНАЛИТИЧЕСКИЙ ОТЧЕТ ПО СИСТЕМЕ\n");
+    writeLine("═══════════════════════════════════════════════════════\n");
+    writeLine("Дата формирования: " + today.toString("dd.MM.yyyy") + "\n");
+    writeLine("Всего операций:    " + QString::number(totalCount) + "\n\n");
 
-    out << "─── ПРОСРОЧЕННЫЕ КРЕДИТЫ ─────────────────────────────\n";
-    out << QString("Количество:          %1\n").arg(overdueCount);
-    out << QString("Сумма задолженности: %1 руб.\n").arg(f2(overdueDebt));
-    out << QString("Начисленные штрафы:  %1 руб.\n").arg(f2(overduePenalty));
+    writeLine("─── ОБЩАЯ СТАТИСТИКА ─────────────────────────────────\n");
+    writeLine(QString("Кредиты:   %1 шт. на сумму %2 руб.\n")
+               .arg(creditCount).arg(f2(creditSum)));
+    writeLine(QString("Вклады:    %1 шт. на сумму %2 руб.\n")
+               .arg(depositCount).arg(f2(depositSum)));
+    writeLine(QString("Итого оборот: %1 руб.\n\n")
+               .arg(f2(creditSum + depositSum)));
+
+    writeLine("─── СРЕДНИЕ ПОКАЗАТЕЛИ ───────────────────────────────\n");
+    writeLine(QString("Средняя ставка (кредиты): %1%\n")
+               .arg(creditRateCnt ? f2(creditRateSum / creditRateCnt) : "0.00"));
+    writeLine(QString("Средняя ставка (вклады):  %1%\n")
+               .arg(depositRateCnt ? f2(depositRateSum / depositRateCnt) : "0.00"));
+    writeLine(QString("Средний срок (кредиты):   %1 дн.\n")
+               .arg(creditCount ? QString::number(creditTermSum / creditCount) : "0"));
+    writeLine(QString("Средний срок (вклады):    %1 дн.\n\n")
+               .arg(depositCount ? QString::number(depositTermSum / depositCount) : "0"));
+
+    writeLine("─── ПРОСРОЧЕННЫЕ КРЕДИТЫ ─────────────────────────────\n");
+    writeLine(QString("Количество:          %1\n").arg(overdueCount));
+    writeLine(QString("Сумма задолженности: %1 руб.\n").arg(f2(overdueDebt)));
+    writeLine(QString("Начисленные штрафы:  %1 руб.\n").arg(f2(overduePenalty)));
     if (overdueCount > 0) {
-        out << "\nСписок просроченных:\n";
-        out << "ID   | ФИО                 | Телефон      | Выдан      | Срок | Проср. | Остаток      | Штраф\n";
-        out << "────────────────────────────────────────────────────────────────────────────────────────────\n";
+        writeLine("\nСписок просроченных:\n");
+        writeLine("ID   | ФИО                 | Телефон      | Выдан      | Срок | Проср. | Остаток      | Штраф\n");
+        writeLine("────────────────────────────────────────────────────────────────────────────────────────────\n");
         for (const auto &r : *m_records) {
             if (r.type != OperationType::Credit || !r.issueDate.isValid()) continue;
             QDate due = r.issueDate.addDays(r.termDays);
             if (due < today && r.endSum > 0.0) {
                 int dl = due.daysTo(today);
                 double pen = (dl > 0) ? CreditCalculator::calculatePenalty(r.endSum, r.penaltyPercent, dl) : 0.0;
-                out << QString("%1 | %2 | %3 | %4 | %5 | %6 | %7 | %8\n")
+                writeLine(QString("%1 | %2 | %3 | %4 | %5 | %6 | %7 | %8\n")
                            .arg(r.id, 4)
                            .arg(r.fullName.left(18), -20)
                            .arg(r.phone, -12)
@@ -195,23 +205,23 @@ void AdminWidget::onExportAnalyticsClicked() {
                            .arg(r.termDays, 4)
                            .arg(dl, 6)
                            .arg(f2(r.endSum), 12)
-                           .arg(f2(pen), 10);
+                           .arg(f2(pen), 10));
             }
         }
     }
-    out << "\n";
+    writeLine("\n");
 
-    out << "─── РАСПРЕДЕЛЕНИЕ ПО ТИПАМ СТАВОК ─────────────────────\n";
+    writeLine("─── РАСПРЕДЕЛЕНИЕ ПО ТИПАМ СТАВОК ─────────────────────\n");
     QStringList rn = {"Фиксированная", "От суммы", "От срока"};
     for (int i = 0; i < 3; ++i) {
-        out << QString("%1: %2 руб. (%3 операций)\n")
+        writeLine(QString("%1: %2 руб. (%3 операций)\n")
                    .arg(rn[i], -15)
                    .arg(f2(rateTypeSum.value(i, 0.0)), 12)
-                   .arg(rateTypeCnt.value(i, 0), 4);
+                   .arg(rateTypeCnt.value(i, 0), 4));
     }
-    out << "\n";
+    writeLine("\n");
 
-    out << "─── ТОП-5 КЛИЕНТОВ ПО СУММЕ ОПЕРАЦИЙ ──────────────────\n";
+    writeLine("─── ТОП-5 КЛИЕНТОВ ПО СУММЕ ОПЕРАЦИЙ ──────────────────\n");
     QList<QPair<QString,double>> top;
     for (auto it = clientSum.begin(); it != clientSum.end(); ++it)
         top.append({it.key(), it.value()});
@@ -219,15 +229,15 @@ void AdminWidget::onExportAnalyticsClicked() {
               [](const auto &a, const auto &b){ return a.second > b.second; });
 
     for (int i = 0; i < qMin(5, top.size()); ++i) {
-        out << QString("%1. %2 | %3 | %4 руб.\n")
+        writeLine(QString("%1. %2 | %3 | %4 руб.\n")
                    .arg(i + 1)
                    .arg(top[i].first)
                    .arg(clientPhone.value(top[i].first, "-"))
-                   .arg(f2(top[i].second));
+                   .arg(f2(top[i].second)));
     }
-    out << "\n";
+    writeLine("\n");
 
-    out << "─── ДИНАМИКА ПО МЕСЯЦАМ ──────────────────────────────\n";
+    writeLine("─── ДИНАМИКА ПО МЕСЯЦАМ ──────────────────────────────\n");
     QSet<QString> ms;
     for (auto it = monCred.begin(); it != monCred.end(); ++it) ms.insert(it.key());
     for (auto it = monDep.begin(); it != monDep.end(); ++it) ms.insert(it.key());
@@ -238,25 +248,26 @@ void AdminWidget::onExportAnalyticsClicked() {
                          QDate::fromString(b+".01","MM.yyyy.dd");
               });
 
-    out << QString("%1 | %2 | %3\n")
+    writeLine(QString("%1 | %2 | %3\n")
                .arg("Месяц", -10)
                .arg("Кредиты (сумма / шт)", -25)
-               .arg("Вклады (сумма / шт)", -25);
-    out << "────────────────────────────────────────────────────────────\n";
+               .arg("Вклады (сумма / шт)", -25));
+    writeLine("────────────────────────────────────────────────────────────\n");
     for (const QString &m : months) {
         auto c = monCred.value(m, {0.0, 0});
         auto d = monDep.value(m, {0.0, 0});
-        out << QString("%1 | %2 / %3 | %4 / %5\n")
+        writeLine(QString("%1 | %2 / %3 | %4 / %5\n")
                    .arg(m, -10)
                    .arg(f2(c.first), 14).arg(c.second, 4)
-                   .arg(f2(d.first), 14).arg(d.second, 4);
+                   .arg(f2(d.first), 14).arg(d.second, 4));
     }
 
-    out << "\n═══════════════════════════════════════════════════════\n";
-    out << "                    Конец отчёта\n";
-    out << "═══════════════════════════════════════════════════════\n";
+    writeLine("\n═══════════════════════════════════════════════════════\n");
+    writeLine("                    Конец отчёта\n");
+    writeLine("═══════════════════════════════════════════════════════\n");
 
     file.close();
+
     QMessageBox::information(this, "Готово",
                              QString("Аналитический отчёт сохранён:\n%1").arg(path));
 }
